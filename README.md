@@ -7,6 +7,63 @@
 
 ## Usage
 
+TFTableDescriptor allows you describe how your table content should be assembled.
+
+```objective-c
+TFTableDescriptor *table = [TFTableDescriptor descriptorWithTable:self.tableView];
+TFSectionDescriptor *section;
+TFRowDescriptor *row;
+
+section = [TFSectionDescriptor descriptorWithTag:TableSectionTagStaticRows title:@"Section with static rows"];
+
+section.sectionClass = [MyHeaderView class];
+row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Static row with tag" tag:kRowTagStaticTest];
+[section addRow:row];
+
+[table addSection:section];
+
+section = [TFSectionDescriptor descriptorWithTag:TableSectionTagDynamicRows title:@"Section with dynamic rows"];
+section.sectionClass = [MyHeaderView class];
+
+row = [TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur bibendum gravida. Aliquam vel augue non massa euismod pharetra. Vivamus euismod ullamcorper velit."];
+[section addRow:row];
+
+[table addSection:section];
+
+self.tableDescriptor = table
+```
+Result might looks like this:
+
+![Screenshot](screenshot1.png =300x)
+
+### Cells
+
+In a first place you need create a cells. TFTableDescriptor provides only base cell and they must be a subclassed. Cell by *TFBasicDescriptedCell* and headers by *TFBasicDescriptedHeaderFooterView*. Take a look at the example if you want create them with xib and don't know how.
+
+```
+#import "TFBasicDescriptedCell.h"
+
+@interface MyCustomCell : TFBasicDescriptedCell
+
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+@end
+```
+
+and if you want them configure with data, you have to implement *TFTableDescriptorConfigurableCellProtocol*'s protocol method 
+
+```
+- (void)configureWithData:(id)data {
+    
+    // If we have suitable data for this cell
+    if ([data isKindOfClass:[NSString class]]) {
+        // configure cell
+        self.titleLabel.text = data;
+    }
+    
+}
+```
+
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
