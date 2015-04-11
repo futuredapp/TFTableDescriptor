@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TFTableDescriptor/TFTableDescriptor.h>
+
 
 @interface TFViewController : UIViewController
 

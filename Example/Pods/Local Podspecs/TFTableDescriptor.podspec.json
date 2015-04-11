@@ -1,15 +1,15 @@
 {
   "name": "TFTableDescriptor",
   "version": "0.1.0",
-  "summary": "A short description of TFTableDescriptor.",
-  "description": "                       An optional longer description of TFTableDescriptor\n\n                       * Markdown format.\n                       * Don't worry about the indent, we strip it!\n",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/TFTableDescriptor",
+  "summary": "Simple table descriptor with dynamic cell height support",
+  "description": "                       TFTableDescriptor is simple table descriptor that helps you describe how a table content should looks like (sections, row). It have a dynamic cell height support for iOS 7 and higher.\n",
+  "homepage": "https://github.com/thefuntasty/TFTableDescriptor",
   "license": "MIT",
   "authors": {
-    "Ales Kocur": "ales.kocur@idospower.cz"
+    "Ales Kocur": "ales@thefuntasty.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/TFTableDescriptor.git",
+    "git": "https://github.com/thefuntasty/TFTableDescriptor.git",
     "tag": "0.1.0"
   },
   "platforms": {
