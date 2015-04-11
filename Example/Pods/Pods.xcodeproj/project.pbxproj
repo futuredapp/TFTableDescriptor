@@ -388,27 +388,27 @@
 		9002F3C41AD92F76007E3811 /* TFBasicDescriptedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFBasicDescriptedCell.m; sourceTree = "<group>"; };
 		9002F3C51AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFBasicDescriptedHeaderFooterView.h; sourceTree = "<group>"; };
 		9002F3C61AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFBasicDescriptedHeaderFooterView.m; sourceTree = "<group>"; };
-		9002F3C71AD92F76007E3811 /* TFBasicDescriptedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFBasicDescriptedCell.h; sourceTree = "<group>"; };
-		9002F3C81AD92F76007E3811 /* TFBasicDescriptedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFBasicDescriptedCell.m; sourceTree = "<group>"; };
-		9002F3C91AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFBasicDescriptedHeaderFooterView.h; sourceTree = "<group>"; };
-		9002F3CA1AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFBasicDescriptedHeaderFooterView.m; sourceTree = "<group>"; };
+		9002F3C71AD92F76007E3811 /* TFBasicDescriptedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFBasicDescriptedCell.h; path = Pod/Classes/TFBasicDescriptedCell.h; sourceTree = "<group>"; };
+		9002F3C81AD92F76007E3811 /* TFBasicDescriptedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFBasicDescriptedCell.m; path = Pod/Classes/TFBasicDescriptedCell.m; sourceTree = "<group>"; };
+		9002F3C91AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFBasicDescriptedHeaderFooterView.h; path = Pod/Classes/TFBasicDescriptedHeaderFooterView.h; sourceTree = "<group>"; };
+		9002F3CA1AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFBasicDescriptedHeaderFooterView.m; path = Pod/Classes/TFBasicDescriptedHeaderFooterView.m; sourceTree = "<group>"; };
 		9002F3CC1AD92F76007E3811 /* ExplicitUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplicitUILabel.h; sourceTree = "<group>"; };
 		9002F3CD1AD92F76007E3811 /* ExplicitUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplicitUILabel.m; sourceTree = "<group>"; };
 		9002F3CE1AD92F76007E3811 /* UITableViewCell+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Identifier.h"; sourceTree = "<group>"; };
 		9002F3CF1AD92F76007E3811 /* UITableViewCell+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Identifier.m"; sourceTree = "<group>"; };
 		9002F3D01AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Identifier.h"; sourceTree = "<group>"; };
 		9002F3D11AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Identifier.m"; sourceTree = "<group>"; };
-		9002F3D21AD92F76007E3811 /* ExplicitUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplicitUILabel.h; sourceTree = "<group>"; };
-		9002F3D31AD92F76007E3811 /* ExplicitUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplicitUILabel.m; sourceTree = "<group>"; };
-		9002F3D41AD92F76007E3811 /* UITableViewCell+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Identifier.h"; sourceTree = "<group>"; };
-		9002F3D51AD92F76007E3811 /* UITableViewCell+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Identifier.m"; sourceTree = "<group>"; };
-		9002F3D61AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Identifier.h"; sourceTree = "<group>"; };
-		9002F3D71AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Identifier.m"; sourceTree = "<group>"; };
-		9002F3D81AD92F76007E3811 /* TFRowDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFRowDescriptor.h; sourceTree = "<group>"; };
-		9002F3D91AD92F76007E3811 /* TFRowDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFRowDescriptor.m; sourceTree = "<group>"; };
-		9002F3DA1AD92F76007E3811 /* TFSectionDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFSectionDescriptor.h; sourceTree = "<group>"; };
-		9002F3DB1AD92F76007E3811 /* TFSectionDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFSectionDescriptor.m; sourceTree = "<group>"; };
-		9002F3DC1AD92F76007E3811 /* TFTableDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFTableDescriptor.h; sourceTree = "<group>"; };
+		9002F3D21AD92F76007E3811 /* ExplicitUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExplicitUILabel.h; path = Pod/Classes/ExplicitUILabel.h; sourceTree = "<group>"; };
+		9002F3D31AD92F76007E3811 /* ExplicitUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExplicitUILabel.m; path = Pod/Classes/ExplicitUILabel.m; sourceTree = "<group>"; };
+		9002F3D41AD92F76007E3811 /* UITableViewCell+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+Identifier.h"; path = "Pod/Classes/UITableViewCell+Identifier.h"; sourceTree = "<group>"; };
+		9002F3D51AD92F76007E3811 /* UITableViewCell+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+Identifier.m"; path = "Pod/Classes/UITableViewCell+Identifier.m"; sourceTree = "<group>"; };
+		9002F3D61AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewHeaderFooterView+Identifier.h"; path = "Pod/Classes/UITableViewHeaderFooterView+Identifier.h"; sourceTree = "<group>"; };
+		9002F3D71AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewHeaderFooterView+Identifier.m"; path = "Pod/Classes/UITableViewHeaderFooterView+Identifier.m"; sourceTree = "<group>"; };
+		9002F3D81AD92F76007E3811 /* TFRowDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFRowDescriptor.h; path = Pod/Classes/TFRowDescriptor.h; sourceTree = "<group>"; };
+		9002F3D91AD92F76007E3811 /* TFRowDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFRowDescriptor.m; path = Pod/Classes/TFRowDescriptor.m; sourceTree = "<group>"; };
+		9002F3DA1AD92F76007E3811 /* TFSectionDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFSectionDescriptor.h; path = Pod/Classes/TFSectionDescriptor.h; sourceTree = "<group>"; };
+		9002F3DB1AD92F76007E3811 /* TFSectionDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFSectionDescriptor.m; path = Pod/Classes/TFSectionDescriptor.m; sourceTree = "<group>"; };
+		9002F3DC1AD92F76007E3811 /* TFTableDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFTableDescriptor.h; path = Pod/Classes/TFTableDescriptor.h; sourceTree = "<group>"; };
 		9049C791542D5589A9AEF09D /* Pods-Tests-Kiwi-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests-Kiwi-Private.xcconfig"; sourceTree = "<group>"; };
 		90D98D910E6E83B668E45A31 /* NSObject+KiwiMockAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+KiwiMockAdditions.m"; path = "Classes/Mocking/NSObject+KiwiMockAdditions.m"; sourceTree = "<group>"; };
 		91F5C32C2BC0E36FD274BB8D /* KWSuiteConfigurationBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KWSuiteConfigurationBase.h; path = Classes/Config/KWSuiteConfigurationBase.h; sourceTree = "<group>"; };
@@ -602,7 +602,8 @@
 				9002F3C51AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.h */,
 				9002F3C61AD92F76007E3811 /* TFBasicDescriptedHeaderFooterView.m */,
 			);
-			path = "Basic cells";
+			name = "Basic cells";
+			path = "Pod/Classes/Basic cells";
 			sourceTree = "<group>";
 		};
 		9002F3CB1AD92F76007E3811 /* Helpers */ = {
@@ -615,7 +616,8 @@
 				9002F3D01AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.h */,
 				9002F3D11AD92F76007E3811 /* UITableViewHeaderFooterView+Identifier.m */,
 			);
-			path = Helpers;
+			name = Helpers;
+			path = Pod/Classes/Helpers;
 			sourceTree = "<group>";
 		};
 		9C4FDDB0351264BE630A3EFF /* TFTableDescriptor */ = {

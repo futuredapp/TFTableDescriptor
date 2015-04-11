@@ -22,7 +22,7 @@ pod "TFTableDescriptor"
 
 ## Author
 
-Ales Kocur, ales.kocur@idospower.cz
+Ales Kocur, ales@thefuntasty.com
 
 ## License
 
