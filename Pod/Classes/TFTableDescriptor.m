@@ -182,9 +182,9 @@
         [cell configureWithData:row.data];
     }
     
-    if ([cell respondsToSelector:@selector(delegate)]) {
-        [cell setValue:self forKey:@"delegate"];
-    }
+//    if ([cell respondsToSelector:@selector(delegate)]) {
+//        [cell setValue:self forKey:@"delegate"];
+//    }
     
     cell.rowDescriptor = row;
     
