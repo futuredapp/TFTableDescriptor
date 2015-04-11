@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'TFTableDescriptor', :exclusive => true do
+  pod "TFTableDescriptor", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "TFTableDescriptor", :path => "../"
+
+  pod 'Kiwi'
+end
