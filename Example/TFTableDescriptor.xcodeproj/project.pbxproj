@@ -156,10 +156,10 @@
 		6003F593195388D20070C39A /* TFTableDescriptor */ = {
 			isa = PBXGroup;
 			children = (
-				9002F4151AD93CCE007E3811 /* Main.storyboard */,
-				9002F4051AD93A6D007E3811 /* Classes */,
 				6003F59C195388D20070C39A /* TFAppDelegate.h */,
 				6003F59D195388D20070C39A /* TFAppDelegate.m */,
+				9002F4151AD93CCE007E3811 /* Main.storyboard */,
+				9002F4051AD93A6D007E3811 /* Classes */,
 				6003F5A5195388D20070C39A /* TFViewController.h */,
 				6003F5A6195388D20070C39A /* TFViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
