@@ -96,4 +96,16 @@ static NSString * const kRowTagStaticTest = @"RowTagStaticTest";
     
 }
 
+// If you want handle header heights by yourself
+
+//- (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForSection:(TFSectionDescriptor *)sectionDescriptor {
+//    if (sectionDescriptor.tag == TableSectionTagStaticRows) {
+//        return 42.0;
+//    } else if (sectionDescriptor.tag == TableSectionTagDynamicRows) {
+//        return 46.0;
+//    }
+//    
+//    return 0.0;
+//}
+
 @end
