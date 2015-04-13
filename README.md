@@ -1,6 +1,6 @@
 # TFTableDescriptor
 
-[![CI Status](http://img.shields.io/travis/Ales Kocur/TFTableDescriptor.svg?style=flat)](https://travis-ci.org/Ales Kocur/TFTableDescriptor)
+[![CI Status](https://travis-ci.org/thefuntasty/TFTableDescriptor.svg?branch=master)](https://travis-ci.org/thefuntasty/TFTableDescriptor)
 [![Version](https://img.shields.io/cocoapods/v/TFTableDescriptor.svg?style=flat)](http://cocoapods.org/pods/TFTableDescriptor)
 [![License](https://img.shields.io/cocoapods/l/TFTableDescriptor.svg?style=flat)](http://cocoapods.org/pods/TFTableDescriptor)
 [![Platform](https://img.shields.io/cocoapods/p/TFTableDescriptor.svg?style=flat)](http://cocoapods.org/pods/TFTableDescriptor)
