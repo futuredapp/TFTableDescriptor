@@ -42,9 +42,11 @@
 
 /// Returns section at given index
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section;
+- (TFSectionDescriptor *)sectionForTag:(NSInteger)tag;
 
 /// Returns row at given NSIndexPath
 - (TFRowDescriptor *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (TFRowDescriptor *)rowForTag:(NSString *)tag;
 
 /// Returns NSIndexPath for specific row tag
 - (NSIndexPath *)indexPathForRowTag:(NSString *)tag;
@@ -54,6 +56,26 @@
 
 /// Returns UITableViewCell for given row descriptor
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
+
+// Inserting rows
+- (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section;
+- (void)insertRow:(TFRowDescriptor *)row atBottomOfSection:(TFSectionDescriptor *)section;
+- (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow;
+- (void)insertRow:(TFRowDescriptor *)row afterRow:(TFRowDescriptor *)afterRow;
+
+- (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)insertRow:(TFRowDescriptor *)row atBottomOfSection:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow rowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)insertRow:(TFRowDescriptor *)row afterRow:(TFRowDescriptor *)afterRow rowAnimation:(UITableViewRowAnimation)rowAnimation;
+
+// Remove row
+
+- (void)removeRow:(TFRowDescriptor *)row;
+- (void)removeRowWithTag:(NSString *)tag;
+
+- (void)removeRow:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation;
+
 
 @end
 

@@ -23,6 +23,13 @@
 + (instancetype)descriptorWithTag:(NSInteger)tag attributedTitle:(NSAttributedString *)attrTitle;
 
 - (void)addRow:(TFRowDescriptor *)rowDescriptor;
+- (void)addRowToTop:(TFRowDescriptor *)rowDescriptor;
+- (void)addRowToBottom:(TFRowDescriptor *)rowDescriptor;
+- (void)addRow:(TFRowDescriptor *)row afterRow:(TFRowDescriptor *)afterRow;
+- (void)addRow:(TFRowDescriptor *)row inFronOfRow:(TFRowDescriptor *)inFrontOfRow;
+
+- (void)removeRow:(TFRowDescriptor *)rowDescriptor;
+
 - (NSArray *)allRows;
 - (NSInteger)numberOfRows;
 - (TFRowDescriptor *)rowAtRowIndex:(NSInteger)rowIndex;

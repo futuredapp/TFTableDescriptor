@@ -13,12 +13,21 @@
 #import "MyDynamicCustomCell.h"
 #import "MyHeaderView.h"
 
+#define LONG_TEXT @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur bibendum gravida. Aliquam vel augue non massa euismod pharetra. Vivamus euismod ullamcorper velit."
+#define SHORT_TEXT @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur bibendum gravida."
+
 typedef NS_ENUM(NSUInteger, TableSectionTag) {
     TableSectionTagStaticRows,
     TableSectionTagDynamicRows
 };
 
-static NSString * const kRowTagStaticTest = @"RowTagStaticTest";
+static NSString * const kRowTagAddAtTop = @"RowTagAddAtTop";
+static NSString * const kRowTagAddToBottom = @"RowTagAddToBottom";
+static NSString * const kRowTagAddInFrontOfRow = @"RowTagAddInFrontOfRow";
+static NSString * const kRowTagAddAfterRow = @"RowTagAddAfterRow";
+
+static NSString * const kRowMyDynamicCell = @"RowMyDynamicCell";
+static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
 
 @interface TFViewController ()<TFTableDescriptorProtocol>
 
@@ -51,12 +60,22 @@ static NSString * const kRowTagStaticTest = @"RowTagStaticTest";
     section.sectionClass = [MyHeaderView class];
     
     // Create row and add it to section
-    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Static row 1"];
+    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Add row at top" tag:kRowTagAddAtTop];
     [section addRow:row];
     
     // Create second row with tag for recognition if selected for example
-    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Static row with tag" tag:kRowTagStaticTest];
+    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Add row at bottom" tag:kRowTagAddToBottom];
     [section addRow:row];
+    
+    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Add row in front of second row" tag:kRowTagAddInFrontOfRow];
+    [section addRow:row];
+    
+    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Add row after first row" tag:kRowTagAddAfterRow];
+    [section addRow:row];
+    
+    row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Remove from top" tag:kRowTagCellForRemove];
+    [section addRow:row];
+
     
     // Add section into table
     [table addSection:section];
@@ -66,8 +85,9 @@ static NSString * const kRowTagStaticTest = @"RowTagStaticTest";
     section.sectionClass = [MyHeaderView class];
     
     // Create MyDynamicCustomCell cell
-    row = [TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur bibendum gravida. Aliquam vel augue non massa euismod pharetra. Vivamus euismod ullamcorper velit."];
+    row = [TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:LONG_TEXT tag:kRowMyDynamicCell];
     [section addRow:row];
+    
     
     [table addSection:section];
     
@@ -83,15 +103,53 @@ static NSString * const kRowTagStaticTest = @"RowTagStaticTest";
 
 - (void)tableDescriptor:(TFTableDescriptor *)descriptor didSelectRow:(TFRowDescriptor *)rowDescriptor {
     
-    UITableViewCell *cell = [self.tableDescriptor cellForRow:rowDescriptor];
+//    UITableViewCell *cell = [self.tableDescriptor cellForRow:rowDescriptor];
     
     if (rowDescriptor.tag) {
         NSLog(@"Did select row with tag: %@ data: %@", rowDescriptor.tag, rowDescriptor.data);
         
-        if ([rowDescriptor.tag isEqualToString:kRowTagStaticTest]) {
+        if ([rowDescriptor.tag isEqualToString:kRowTagAddAtTop]) {
             // Do something with cell
-            ((MyCustomCell *)cell).titleLabel.text = [NSString stringWithFormat:@"%@%@",((MyCustomCell *)cell).titleLabel.text, @"A"];
+            //((MyCustomCell *)cell).titleLabel.text = [NSString stringWithFormat:@"%@%@",((MyCustomCell *)cell).titleLabel.text, @"A"];
+            
+            [self.tableDescriptor insertRow:[TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:@"TOP"] atTopOfSection:[self.tableDescriptor sectionForTag:TableSectionTagDynamicRows]];
+            
+        } else if ([rowDescriptor.tag isEqualToString:kRowTagAddToBottom]) {
+            
+            [self.tableDescriptor insertRow:[TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:@"BOTTOM"] atBottomOfSection:[self.tableDescriptor sectionForTag:TableSectionTagDynamicRows]];
+        } else if ([rowDescriptor.tag isEqualToString:kRowTagAddInFrontOfRow]) {
+            
+            TFRowDescriptor *inFrontOfRow = [self.tableDescriptor rowForTag:kRowMyDynamicCell];
+            
+            if (inFrontOfRow) {
+                [self.tableDescriptor insertRow:[TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"IN FRONT OF CELL"] inFrontOfRow:inFrontOfRow rowAnimation:UITableViewRowAnimationLeft];
+            } else {
+                NSLog(@"kRowMyDynamicCell not found");
+            }
+            
+        } else if ([rowDescriptor.tag isEqualToString:kRowTagAddAfterRow]) {
+            
+            TFRowDescriptor *afterRow = [self.tableDescriptor rowForTag:kRowMyDynamicCell];
+            
+            if (afterRow) {
+                [self.tableDescriptor insertRow:[TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"AFTER CELL"] afterRow:afterRow rowAnimation:UITableViewRowAnimationFade];
+            } else {
+                NSLog(@"kRowMyDynamicCell not found");
+            }
+            
+        } else if ([rowDescriptor.tag isEqualToString:kRowTagCellForRemove]) {
+            
+            TFRowDescriptor *row = [[[self.tableDescriptor sectionForTag:TableSectionTagDynamicRows] allRows] firstObject];
+            
+            if (row && ![row.tag isEqualToString:kRowMyDynamicCell]) {
+                [self.tableDescriptor removeRow:row rowAnimation:UITableViewRowAnimationRight];
+            } else {
+                NSLog(@"No rows to delete");
+            }
+            
+            
         }
+        
     }
     
 }

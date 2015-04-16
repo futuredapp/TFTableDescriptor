@@ -50,11 +50,45 @@
 }
 
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section {
+    if (section >= self.sections.count) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"sectionIndex": @(section), @"sections": self.sections}] raise];
+    }
     return self.sections[section];
 }
 
+- (TFSectionDescriptor *)sectionForTag:(NSInteger)tag {
+    for (TFSectionDescriptor *section in self.sections) {
+        if (section.tag == tag) {
+            return section;
+        }
+    }
+    
+    return nil;
+}
+
+
 - (TFRowDescriptor *)rowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSAssert(indexPath != nil, @"IndexPath cannot be nil!");
+    
+    if (indexPath.section >= self.sections.count) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"indexPath": indexPath, @"sections": self.sections}] raise];
+    }
+    
+    if (indexPath.row >= [self.sections[indexPath.section] numberOfRows]) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting row" userInfo:@{@"indexPath": indexPath, @"rows": self.sections[indexPath.section]}] raise];
+    }
+    
     return [self.sections[indexPath.section] rowAtRowIndex:indexPath.row];
+}
+
+- (TFRowDescriptor *)rowForTag:(NSString *)tag {
+    NSIndexPath *indexPath = [self indexPathForRowTag:tag];
+    if (indexPath) {
+        return [self rowAtIndexPath:indexPath];
+    } else {
+        return nil;
+    }
 }
 
 - (NSIndexPath *)indexPathForRowTag:(NSString *)tag {
@@ -191,6 +225,8 @@
     return cell;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:didSelectRow:)]) {
@@ -244,6 +280,168 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return CGFLOAT_MIN;
 }
+
+#pragma mark - Manipulating with table
+
+- (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section {
+    [self insertRow:row atTopOfSection:section rowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)insertRow:(TFRowDescriptor *)row atBottomOfSection:(TFSectionDescriptor *)section {
+    [self insertRow:row atBottomOfSection:section rowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow {
+    [self insertRow:row inFrontOfRow:inFrontOfRow rowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)insertRow:(TFRowDescriptor *)row afterRow:(TFRowDescriptor *)afterRow {
+    [self insertRow:row afterRow:afterRow rowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
+- (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
+    NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
+    
+    [section addRowToTop:row];
+    
+    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+    
+}
+
+- (void)insertRow:(TFRowDescriptor *)row atBottomOfSection:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
+    
+    [section addRowToBottom:row];
+    
+    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+    
+}
+
+- (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow rowAnimation:(UITableViewRowAnimation)rowAnimation {
+
+    NSAssert(inFrontOfRow != nil, @"inFrontOfRow cannot be nil!");
+    NSAssert(inFrontOfRow.section != nil, @"Trying to add cell in front of cell which is not in section!");
+    
+    [inFrontOfRow.section addRow:row inFronOfRow:inFrontOfRow];
+    
+    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+    
+}
+
+- (void)insertRow:(TFRowDescriptor *)row afterRow:(TFRowDescriptor *)afterRow rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
+    NSAssert(afterRow != nil, @"afterRow cannot be nil!");
+    NSAssert(afterRow.section != nil, @"Trying to add cell after cell which is not in section!");
+    
+    [afterRow.section addRow:row afterRow:afterRow];
+    
+    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+}
+
+- (void)updateTableForInsertionAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    [self insertCellSizeCacheAtIndexPath:indexPath];
+    
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
+    [self.tableView endUpdates];
+}
+
+- (void)updateTableForDeleteAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    [self deleteCellSizeCacheAtIndexPath:indexPath];
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
+    [self.tableView endUpdates];
+}
+
+#pragma mark - Removing rows
+
+- (void)removeRow:(TFRowDescriptor *)row {
+    [self removeRow:row rowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)removeRowWithTag:(NSString *)tag {
+    [self removeRowWithTag:tag rowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)removeRow:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
+    NSAssert(row != nil, @"Row cannot be nil!");
+    
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+    [row.section removeRow:row];
+    [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:rowAnimation];
+}
+
+- (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
+    NSAssert(tag != nil, @"Tag cannot be nil!");
+    
+    TFRowDescriptor *row = [self rowForTag:tag];
+    
+    [self removeRow:row rowAnimation:rowAnimation];
+}
+
+#pragma mark - Helpers 
+
+- (BOOL)containSection:(TFSectionDescriptor *)section {
+    return [self.sections containsObject:section];
+}
+
+- (NSArray *)indexPathsAfterIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *indexPaths = [@[] mutableCopy];
+    
+    for (NSUInteger ri = indexPath.row; ri < [self.sections[indexPath.section] numberOfRows]; ri++) {
+        
+        [indexPaths addObject:[NSIndexPath indexPathForRow:ri inSection:indexPath.section]];
+        
+    }
+    
+    return indexPaths;
+}
+
+#pragma mark - Cell size cache managment
+
+/// This will shift all cached index paths values by indexPath.row + 1
+- (void)insertCellSizeCacheAtIndexPath:(NSIndexPath *)rowIndexPath {
+    
+    NSArray *indexPaths = [self indexPathsAfterIndexPath:rowIndexPath];
+    
+    [indexPaths enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSIndexPath *obj, NSUInteger idx, BOOL *stop) {
+        NSNumber *cache = [self.cellSizeCache objectForKey:obj];
+        
+        if (cache) {
+            [self.cellSizeCache setObject:cache forKey:[NSIndexPath indexPathForRow:obj.row + 1 inSection:obj.section]];
+        }
+        
+        if (idx == 0) {
+            [self.cellSizeCache removeObjectForKey:obj];
+        }
+    }];
+    
+}
+
+- (void)deleteCellSizeCacheAtIndexPath:(NSIndexPath *)rowIndexPath {
+    
+    NSArray *indexPaths = [self indexPathsAfterIndexPath:rowIndexPath];
+    
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath *obj, NSUInteger idx, BOOL *stop) {
+        
+        NSNumber *cache = [self.cellSizeCache objectForKey:[NSIndexPath indexPathForRow:obj.row + 1 inSection:obj.section]];
+        
+        if (cache) {
+            [self.cellSizeCache setObject:cache forKey:obj];
+        }
+        
+        if (idx == indexPaths.count-1) {
+            [self.cellSizeCache removeObjectForKey:[NSIndexPath indexPathForRow:obj.row + 1 inSection:obj.section]];
+        }
+    }];
+    
+}
+
 
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 //    RestaurantFooter *footer = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[RestaurantFooter identifier]];
