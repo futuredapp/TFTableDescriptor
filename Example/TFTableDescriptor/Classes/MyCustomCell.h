@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TFBasicDescriptedCell.h"
+#import <TFBasicDescriptedCell.h>
 
 @interface MyCustomCell : TFBasicDescriptedCell
 

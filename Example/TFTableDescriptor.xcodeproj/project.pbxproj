@@ -28,6 +28,8 @@
 		9002F4131AD93A6D007E3811 /* MyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9002F40D1AD93A6D007E3811 /* MyHeaderView.m */; };
 		9002F4141AD93A6D007E3811 /* MyHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9002F40E1AD93A6D007E3811 /* MyHeaderView.xib */; };
 		9002F4171AD93CCE007E3811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9002F4151AD93CCE007E3811 /* Main.storyboard */; };
+		90D779FC1ADFF30600A87A19 /* MyCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9002F4081AD93A6D007E3811 /* MyCustomCell.xib */; };
+		90D779FD1ADFF30900A87A19 /* MyCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9002F4071AD93A6D007E3811 /* MyCustomCell.m */; };
 		B806B7677F6ED738B9C04DBD /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB099386623574BC8770406E /* libPods-Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -318,6 +320,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D779FC1ADFF30600A87A19 /* MyCustomCell.xib in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D779FD1ADFF30900A87A19 /* MyCustomCell.m in Sources */,
 				6003F5BC195388D20070C39A /* Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +533,7 @@
 				GCC_PREFIX_HEADER = "TFTableDescriptor/TFTableDescriptor-Prefix.pch";
 				INFOPLIST_FILE = "TFTableDescriptor/TFTableDescriptor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f5968f1e-0e25-4f89-8a72-3e60c25d40fc";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -543,6 +548,7 @@
 				GCC_PREFIX_HEADER = "TFTableDescriptor/TFTableDescriptor-Prefix.pch";
 				INFOPLIST_FILE = "TFTableDescriptor/TFTableDescriptor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f5968f1e-0e25-4f89-8a72-3e60c25d40fc";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -565,6 +571,7 @@
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f5968f1e-0e25-4f89-8a72-3e60c25d40fc";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -584,6 +591,7 @@
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f5968f1e-0e25-4f89-8a72-3e60c25d40fc";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
