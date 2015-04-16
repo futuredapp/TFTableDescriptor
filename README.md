@@ -88,6 +88,17 @@ You can access selected cell's descriptor by *TFTableDescriptor* delegate method
 }
 ```
 
+### Inserting and removing cells
+
+You can also insert or remove cell from table acording its tag or row descriptor
+
+```objective-c
+[self.tableDescriptor insertRow:[TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"IN FRONT OF CELL"] inFrontOfRow:inFrontOfRow rowAnimation:UITableViewRowAnimationLeft];
+
+[self.tableDescriptor removeRow:row rowAnimation:UITableViewRowAnimationRight];
+```
+
+Animation type can be changed with rowAnimation parameter.
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
