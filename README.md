@@ -7,7 +7,7 @@
 
 ## Usage
 
-TFTableDescriptor allows you describe how your table content should be assembled.
+TFTableDescriptor allows you to describe how your table content should be assembled.
 
 ```objective-c
 TFTableDescriptor *table = [TFTableDescriptor descriptorWithTable:self.tableView];
@@ -32,13 +32,13 @@ row = [TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:@
 
 self.tableDescriptor = table
 ```
-Result might looks like this:
+The result might look like this:
 
 <img src="https://github.com/thefuntasty/TFTableDescriptor/blob/master/screenshot1.png" width=300px />
 
 ### Cells
 
-In a first place you need create a cells. TFTableDescriptor provides only base cell and they must be a subclassed. Cell by *TFBasicDescriptedCell* and headers by *TFBasicDescriptedHeaderFooterView*. Take a look at the example if you want to create them with xib and don't know how.
+In the first place, you need to create cells. TFTableDescriptor provides only base cells and they must be subclassed. Cell by *TFBasicDescriptedCell* and headers by *TFBasicDescriptedHeaderFooterView*. Take a look at the example if you want to create them with xib and don't know how.
 
 ```objective-c
 #import "TFBasicDescriptedCell.h"
@@ -49,8 +49,16 @@ In a first place you need create a cells. TFTableDescriptor provides only base c
 
 @end
 ```
+You also need register them to UITableView with provided macros
 
-and if you want them configure with data, you have to implement *TFTableDescriptorConfigurableCellProtocol*'s protocol method 
+```objective-c
+
+REGISTER_CELL_FOR_TABLE(MyButtonCell, self.tableView);
+REGISTER_HEADER_FOOTER_FOR_TABLE(MyHeaderView, self.tableView);
+
+```
+
+If you want them configure with data, you have to implement *TFTableDescriptorConfigurableCellProtocol*'s protocol method 
 
 ```objective-c
 - (void)configureWithData:(id)data {
@@ -64,7 +72,7 @@ and if you want them configure with data, you have to implement *TFTableDescript
 }
 ```
 
-If your cell height is static, you should implement **+(NSNumber *)height** method as well
+If your cell height is static, you should implement **+(NSNumber *)height** method as well,
 
 ```objective-c
 + (NSNumber *)height {
@@ -72,15 +80,15 @@ If your cell height is static, you should implement **+(NSNumber *)height** meth
 }
 ```
 
-otherwise the height is calculated by autolayout -> it supports dynamic height of cells. Only thing you need to do is set up your autolayout right. That means there should be contraints upside down and from left to right.
+otherwise the height is calculated by autolayout -> it supports dynamic height of cells. The only thing you need to do is set up your autolayout right. That means there should be contraints upside down and from left to right.
 
 <img src="https://github.com/thefuntasty/TFTableDescriptor/blob/master/screenshot2.png" width=300px />
 
-If you need support iOS7 and different screensizes, you should use TFExplicitLabel (UILabel subclass) anywhere you have more lines than 1. This is important for right autolayout calculation with different display sizes.
+If you need support iOS7 and different screensizes, you should use TFExplicitLabel (UILabel subclass) anywhere you have more than 1 lines. This is important for the right autolayout calculation with different display sizes.
 
 ### Selecting cells
 
-You can access selected cell's descriptor by *TFTableDescriptor* delegate method. If you want access its cell, use tableDescriptor's cellForRow: method.
+You can access selected cell's descriptor by *TFTableDescriptor* delegate method. If you want to access its cell, use tableDescriptor's cellForRow: method.
 
 ```objective-c
 - (void)tableDescriptor:(TFTableDescriptor *)descriptor didSelectRow:(TFRowDescriptor *)rowDescriptor {
@@ -90,7 +98,7 @@ You can access selected cell's descriptor by *TFTableDescriptor* delegate method
 
 ### Inserting and removing cells
 
-You can also insert or remove cell from table acording its tag or row descriptor
+You can also insert or remove cell from table according to its tag or row descriptor.
 
 ```objective-c
 [self.tableDescriptor insertRow:[TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"IN FRONT OF CELL"] inFrontOfRow:inFrontOfRow rowAnimation:UITableViewRowAnimationLeft];
