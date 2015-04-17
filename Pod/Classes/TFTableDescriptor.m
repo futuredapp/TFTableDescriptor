@@ -205,7 +205,10 @@
     
     TFRowDescriptor *row = [self rowAtIndexPath:indexPath];
     
+    
     TFBasicDescriptedCell<TFTableDescriptorConfigurableCellProtocol> *cell = [self.tableView dequeueReusableCellWithIdentifier:[row.rowClass performSelector:@selector(identifier)]];
+    
+    NSAssert(cell != nil, ([NSString stringWithFormat:@"You probably forget to register %@ class", NSStringFromClass(row.rowClass)]));
     
     if (![cell isKindOfClass:[TFBasicDescriptedCell class]]) {
         NSLog(@"Cell must be subclass of BasicDescriptedCell!");

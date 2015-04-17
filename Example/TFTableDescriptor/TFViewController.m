@@ -12,13 +12,15 @@
 #import "MyCustomCell.h"
 #import "MyDynamicCustomCell.h"
 #import "MyHeaderView.h"
+#import "MyButtonCell.h"
 
 #define LONG_TEXT @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur bibendum gravida. Aliquam vel augue non massa euismod pharetra. Vivamus euismod ullamcorper velit."
 #define SHORT_TEXT @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur bibendum gravida."
 
 typedef NS_ENUM(NSUInteger, TableSectionTag) {
     TableSectionTagStaticRows,
-    TableSectionTagDynamicRows
+    TableSectionTagDynamicRows,
+    TableSectionTagButtons
 };
 
 static NSString * const kRowTagAddAtTop = @"RowTagAddAtTop";
@@ -44,6 +46,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     // Register cell which we are going to use (you should use these macros)
     REGISTER_CELL_FOR_TABLE(MyCustomCell, self.tableView);
     REGISTER_CELL_FOR_TABLE(MyDynamicCustomCell, self.tableView);
+    REGISTER_CELL_FOR_TABLE(MyButtonCell, self.tableView);
     REGISTER_HEADER_FOOTER_FOR_TABLE(MyHeaderView, self.tableView);
     
     // Create base descriptor with table
@@ -53,6 +56,24 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     TFRowDescriptor *row;
     
     // Describe table
+    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagButtons title:@"Section with buttons"];
+    // Set class of header
+    section.sectionClass = [MyHeaderView class];
+    row = [TFRowDescriptor descriptorWithRowClass:[MyButtonCell class] data:nil tag:nil];
+    [row setActionBlock:^(TFRowAction *action) {
+        
+        if (action.actionType == MyButtonCellActionTypeTriggerButton1) {
+            [[[UIAlertView alloc] initWithTitle:@"Action block" message:@"This message was triggered by block" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+        }
+    
+    }];
+    
+    [row setTarget:self withSelector:@selector(cellActionTrigger:)];
+    
+    [section addRow:row];
+
+    [table addSection:section];
+    
     
     // Create section
     section = [TFSectionDescriptor descriptorWithTag:TableSectionTagStaticRows title:@"Section with static rows"];
@@ -152,6 +173,14 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
         
     }
     
+}
+
+- (void)cellActionTrigger:(TFRowAction *)action {
+    if (action.actionType == MyButtonCellActionTypeTriggerButton2) {
+
+        [[[UIAlertView alloc] initWithTitle:@"Action selector" message:@"This message was triggered by selector" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+
+    }
 }
 
 // If you want handle header heights by yourself

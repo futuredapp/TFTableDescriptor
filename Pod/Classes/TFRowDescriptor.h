@@ -10,14 +10,32 @@
 
 @class TFSectionDescriptor;
 
+@interface TFRowAction : NSObject
+
+@property (nonatomic, strong) id sender;
+@property NSInteger actionType;
+
++ (instancetype)actionWithSender:(id)sender actionType:(NSInteger)actionType;
+
+@end
+
+
 @interface TFRowDescriptor : NSObject
 
 @property (nonatomic) Class rowClass;
 @property (nonatomic) id data;
 @property (nonatomic) NSString *tag;
 @property (nonatomic, weak) TFSectionDescriptor *section;
+@property (nonatomic, copy) void (^actionBlock)(TFRowAction *action);
 
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data;
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data tag:(NSString *)tag;
+
+- (void)setTarget:(id)target withSelector:(SEL)selector;
+- (void)setActionBlock:(void(^)(TFRowAction *action))actionBlock;
+
+/// Determine if action can be triggered
+- (BOOL)canTriggerAction;
+- (void)triggerAction:(TFRowAction *)action;
 
 @end

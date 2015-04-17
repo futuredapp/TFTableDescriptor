@@ -30,6 +30,8 @@
 		9002F4171AD93CCE007E3811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9002F4151AD93CCE007E3811 /* Main.storyboard */; };
 		90D779FC1ADFF30600A87A19 /* MyCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9002F4081AD93A6D007E3811 /* MyCustomCell.xib */; };
 		90D779FD1ADFF30900A87A19 /* MyCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9002F4071AD93A6D007E3811 /* MyCustomCell.m */; };
+		90D77A011AE0EEC000A87A19 /* MyButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */; };
+		90D77A021AE0EEC000A87A19 /* MyButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */; };
 		B806B7677F6ED738B9C04DBD /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB099386623574BC8770406E /* libPods-Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,9 @@
 		9002F40D1AD93A6D007E3811 /* MyHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHeaderView.m; sourceTree = "<group>"; };
 		9002F40E1AD93A6D007E3811 /* MyHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHeaderView.xib; sourceTree = "<group>"; };
 		9002F4161AD93CCE007E3811 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		90D779FE1AE0EEBF00A87A19 /* MyButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButtonCell.h; sourceTree = "<group>"; };
+		90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyButtonCell.m; sourceTree = "<group>"; };
+		90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyButtonCell.xib; sourceTree = "<group>"; };
 		BA6394384E39734188C493B1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DB099386623574BC8770406E /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6A5E17598B78E4157830E2 /* libPods-TFTableDescriptor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TFTableDescriptor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +227,9 @@
 				9002F40C1AD93A6D007E3811 /* MyHeaderView.h */,
 				9002F40D1AD93A6D007E3811 /* MyHeaderView.m */,
 				9002F40E1AD93A6D007E3811 /* MyHeaderView.xib */,
+				90D779FE1AE0EEBF00A87A19 /* MyButtonCell.h */,
+				90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */,
+				90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -313,6 +321,7 @@
 				9002F4171AD93CCE007E3811 /* Main.storyboard in Resources */,
 				9002F4121AD93A6D007E3811 /* MyDynamicCustomCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				90D77A021AE0EEC000A87A19 /* MyButtonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +408,7 @@
 				9002F4111AD93A6D007E3811 /* MyDynamicCustomCell.m in Sources */,
 				6003F5A7195388D20070C39A /* TFViewController.m in Sources */,
 				9002F4131AD93A6D007E3811 /* MyHeaderView.m in Sources */,
+				90D77A011AE0EEC000A87A19 /* MyButtonCell.m in Sources */,
 				9002F40F1AD93A6D007E3811 /* MyCustomCell.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
