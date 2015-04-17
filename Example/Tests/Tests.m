@@ -105,4 +105,34 @@ describe(@"TFTableDescriptor", ^{
   
 });
 
+describe(@"TFRowDescriptor", ^{
+   context(@"properties states", ^{
+      
+       __block TFRowDescriptor *row;
+      
+       beforeEach(^{
+           row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"data" tag:@"tag"];
+       });
+       
+       it(@"exist", ^{
+           [[row should] beNonNil];
+       });
+       
+       it(@"have data", ^{
+           [[[row data] should] beKindOfClass:[NSString class]];
+           [[[row data] should] equal:@"data"];
+       });
+       
+       it(@"have tag", ^{
+           [[[row tag] should] equal:@"tag"];
+       });
+       
+       it(@"have row class", ^{
+           [[[row rowClass] should] equal:[MyCustomCell class]];
+       });
+       
+   });
+});
+
+
 SPEC_END
