@@ -5,7 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/TFTableDescriptor.svg?style=flat)](http://cocoapods.org/pods/TFTableDescriptor)
 [![Platform](https://img.shields.io/cocoapods/p/TFTableDescriptor.svg?style=flat)](http://cocoapods.org/pods/TFTableDescriptor)
 
-## Usage
+## Documentation
+* [Creating cell](https://github.com/thefuntasty/TFTableDescriptor/wiki/Creating-cells)
+* [Describing a table](https://github.com/thefuntasty/TFTableDescriptor/wiki/Describing-a-table)
+
+## Quick usage
 
 TFTableDescriptor allows you to describe how your table content should be assembled.
 
@@ -114,7 +118,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 - cell appearance customization by Row descriptor
 - default cells for forms
-- cell delegates and selectors
+- ~~cell blocks and selectors~~
+- ~~tests~~
 - footer support
 
 ## Requirements
