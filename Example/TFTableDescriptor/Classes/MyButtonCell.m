@@ -28,13 +28,13 @@
 - (IBAction)buttonActions:(id)sender {
 
     if ([self.rowDescriptor canTriggerAction]) {
+        
         if (sender == self.button1) {
             [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender actionType:MyButtonCellActionTypeTriggerButton1]];
         } else if (sender == self.button2) {
             [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender actionType:MyButtonCellActionTypeTriggerButton2]];
         }
     }
-
 }
 
 @end

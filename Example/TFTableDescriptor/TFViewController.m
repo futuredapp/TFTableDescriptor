@@ -56,7 +56,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     TFRowDescriptor *row;
     
     // Describe table
-    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagButtons title:@"Section with buttons"];
+    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagButtons data:@"Section with buttons"];
     // Set class of header
     section.sectionClass = [MyHeaderView class];
     row = [TFRowDescriptor descriptorWithRowClass:[MyButtonCell class] data:nil tag:nil];
@@ -76,7 +76,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     
     
     // Create section
-    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagStaticRows title:@"Section with static rows"];
+    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagStaticRows data:@"Section with static rows"];
     // Set class of header
     section.sectionClass = [MyHeaderView class];
     
@@ -102,7 +102,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     [table addSection:section];
     
     // Create another section
-    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagDynamicRows title:@"Section with dynamic rows"];
+    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagDynamicRows data:@"Section with dynamic rows"];
     section.sectionClass = [MyHeaderView class];
     
     // Create MyDynamicCustomCell cell

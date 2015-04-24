@@ -17,23 +17,16 @@
 
 @implementation TFSectionDescriptor
 
-+ (instancetype)descriptorWithTitle:(NSString *)title {
++ (instancetype)descriptorWithData:(id)data {
     TFSectionDescriptor *descriptor = [[TFSectionDescriptor alloc] init];
-    descriptor.title = title;
+    descriptor.data = data;
     return descriptor;
 }
 
-+ (instancetype)descriptorWithTag:(NSInteger)tag title:(NSString *)title {
++ (instancetype)descriptorWithTag:(NSInteger)tag data:(id)data {
     TFSectionDescriptor *descriptor = [[TFSectionDescriptor alloc] init];
     descriptor.tag = tag;
-    descriptor.title = title;
-    return descriptor;
-}
-
-+ (instancetype)descriptorWithTag:(NSInteger)tag attributedTitle:(NSAttributedString *)attrTitle {
-    TFSectionDescriptor *descriptor = [[TFSectionDescriptor alloc] init];
-    descriptor.tag = tag;
-    descriptor.attributedTitle = attrTitle;
+    descriptor.data = data;
     return descriptor;
 }
 

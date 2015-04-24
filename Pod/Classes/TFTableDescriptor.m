@@ -255,11 +255,7 @@
     
     
     if ([view conformsToProtocol:@protocol(TFTableDescriptorHeaderFooterProtocol)]) {
-        if (sectionDescriptor.attributedTitle) {
-            [view configureWithData:sectionDescriptor.attributedTitle];
-        } else if (sectionDescriptor.title) {
-            [view configureWithData:sectionDescriptor.title];
-        } else if (sectionDescriptor.data) {
+        if (sectionDescriptor.data) {
             [view configureWithData:sectionDescriptor.data];
         }
     }

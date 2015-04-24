@@ -12,15 +12,12 @@
 
 @interface TFSectionDescriptor : NSObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSAttributedString *attributedTitle;
 @property (nonatomic) NSInteger tag;
 @property (nonatomic) Class sectionClass;
 @property (nonatomic) id data;
 
-+ (instancetype)descriptorWithTitle:(NSString *)title;
-+ (instancetype)descriptorWithTag:(NSInteger)tag title:(NSString *)title;
-+ (instancetype)descriptorWithTag:(NSInteger)tag attributedTitle:(NSAttributedString *)attrTitle;
++ (instancetype)descriptorWithData:(id)data;
++ (instancetype)descriptorWithTag:(NSInteger)tag data:(id)data;
 
 - (void)addRow:(TFRowDescriptor *)rowDescriptor;
 - (void)addRowToTop:(TFRowDescriptor *)rowDescriptor;
