@@ -31,7 +31,7 @@ static NSString * const kRowTagAddAfterRow = @"RowTagAddAfterRow";
 static NSString * const kRowMyDynamicCell = @"RowMyDynamicCell";
 static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
 
-@interface TFViewController ()<TFTableDescriptorProtocol>
+@interface TFViewController ()<TFTableDescriptorDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) TFTableDescriptor *tableDescriptor;
@@ -120,7 +120,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     
 }
 
-#pragma mark - TFTableDescriptorProtocol
+#pragma mark - TFTableDescriptorDelegate
 
 - (void)tableDescriptor:(TFTableDescriptor *)descriptor didSelectRow:(TFRowDescriptor *)rowDescriptor {
     

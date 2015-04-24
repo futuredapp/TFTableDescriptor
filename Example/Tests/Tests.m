@@ -22,7 +22,7 @@ describe(@"TFTableDescriptor", ^{
           REGISTER_CELL_FOR_TABLE(MyCustomCell, tableView);
           
           TFTableDescriptor *table = [TFTableDescriptor descriptorWithTable:tableView];
-          TFSectionDescriptor *section = [TFSectionDescriptor descriptorWithTag:1234 title:@"title"];
+          TFSectionDescriptor *section = [TFSectionDescriptor descriptorWithTag:1234 data:@"title"];
           [section addRow:[TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"data" tag:@"rowtag"]];
           [table addSection:section];
           [tableView reloadData];

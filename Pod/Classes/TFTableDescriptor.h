@@ -19,7 +19,7 @@
 
 @class TFTableDescriptor;
 
-@protocol TFTableDescriptorProtocol <NSObject>
+@protocol TFTableDescriptorDelegate <NSObject>
 
 @optional
 - (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForSection:(TFSectionDescriptor *)sectionDescriptor;
@@ -29,7 +29,7 @@
 
 @interface TFTableDescriptor : NSObject<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, weak) id<TFTableDescriptorProtocol> delegate;
+@property (nonatomic, assign) id<TFTableDescriptorDelegate> delegate;
 
 + (instancetype)descriptor;
 + (instancetype)descriptorWithTable:(UITableView *)tableView;
