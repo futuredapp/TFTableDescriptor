@@ -33,6 +33,13 @@
 		90D77A011AE0EEC000A87A19 /* MyButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */; };
 		90D77A021AE0EEC000A87A19 /* MyButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */; };
 		B806B7677F6ED738B9C04DBD /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB099386623574BC8770406E /* libPods-Tests.a */; };
+		EEB6734C1AEAFC2C00667551 /* TFActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB6734B1AEAFC2C00667551 /* TFActionsViewController.m */; };
+		EEB673511AEB000F00667551 /* MyWideButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB6734F1AEB000F00667551 /* MyWideButtonCell.m */; };
+		EEB673521AEB000F00667551 /* MyWideButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB673501AEB000F00667551 /* MyWideButtonCell.xib */; };
+		EEB673561AEB0CE700667551 /* MyControlsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB673541AEB0CE700667551 /* MyControlsCell.m */; };
+		EEB673571AEB0CE700667551 /* MyControlsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB673551AEB0CE700667551 /* MyControlsCell.xib */; };
+		EEB6735E1AEB131F00667551 /* MySliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB6735C1AEB131F00667551 /* MySliderCell.m */; };
+		EEB6735F1AEB131F00667551 /* MySliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB6735D1AEB131F00667551 /* MySliderCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,13 +85,24 @@
 		9002F40D1AD93A6D007E3811 /* MyHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHeaderView.m; sourceTree = "<group>"; };
 		9002F40E1AD93A6D007E3811 /* MyHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHeaderView.xib; sourceTree = "<group>"; };
 		9002F4161AD93CCE007E3811 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
-		90D779FE1AE0EEBF00A87A19 /* MyButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButtonCell.h; sourceTree = "<group>"; };
-		90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyButtonCell.m; sourceTree = "<group>"; };
-		90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyButtonCell.xib; sourceTree = "<group>"; };
+		90D779FE1AE0EEBF00A87A19 /* MyButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyButtonCell.h; path = Classes/MyButtonCell.h; sourceTree = "<group>"; };
+		90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyButtonCell.m; path = Classes/MyButtonCell.m; sourceTree = "<group>"; };
+		90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyButtonCell.xib; path = Classes/MyButtonCell.xib; sourceTree = "<group>"; };
 		BA6394384E39734188C493B1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DB099386623574BC8770406E /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6A5E17598B78E4157830E2 /* libPods-TFTableDescriptor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TFTableDescriptor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEBC0CB6DE9BA16BF3C5BB8F /* TFTableDescriptor.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TFTableDescriptor.podspec; path = ../TFTableDescriptor.podspec; sourceTree = "<group>"; };
+		EEB6734A1AEAFC2C00667551 /* TFActionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFActionsViewController.h; sourceTree = "<group>"; };
+		EEB6734B1AEAFC2C00667551 /* TFActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFActionsViewController.m; sourceTree = "<group>"; };
+		EEB6734E1AEB000F00667551 /* MyWideButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWideButtonCell.h; sourceTree = "<group>"; };
+		EEB6734F1AEB000F00667551 /* MyWideButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWideButtonCell.m; sourceTree = "<group>"; };
+		EEB673501AEB000F00667551 /* MyWideButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyWideButtonCell.xib; sourceTree = "<group>"; };
+		EEB673531AEB0CE700667551 /* MyControlsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyControlsCell.h; sourceTree = "<group>"; };
+		EEB673541AEB0CE700667551 /* MyControlsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyControlsCell.m; sourceTree = "<group>"; };
+		EEB673551AEB0CE700667551 /* MyControlsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyControlsCell.xib; sourceTree = "<group>"; };
+		EEB6735B1AEB131F00667551 /* MySliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySliderCell.h; sourceTree = "<group>"; };
+		EEB6735C1AEB131F00667551 /* MySliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySliderCell.m; sourceTree = "<group>"; };
+		EEB6735D1AEB131F00667551 /* MySliderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySliderCell.xib; sourceTree = "<group>"; };
 		FD903AC2B506FE9B4061E318 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FFC30EE82F2F374E2DFFF74A /* Pods-TFTableDescriptor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TFTableDescriptor.release.xcconfig"; path = "Pods/Target Support Files/Pods-TFTableDescriptor/Pods-TFTableDescriptor.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,12 +181,10 @@
 		6003F593195388D20070C39A /* TFTableDescriptor */ = {
 			isa = PBXGroup;
 			children = (
+				EEB673441AEAF8FE00667551 /* Sections */,
 				6003F59C195388D20070C39A /* TFAppDelegate.h */,
 				6003F59D195388D20070C39A /* TFAppDelegate.m */,
 				9002F4151AD93CCE007E3811 /* Main.storyboard */,
-				9002F4051AD93A6D007E3811 /* Classes */,
-				6003F5A5195388D20070C39A /* TFViewController.h */,
-				6003F5A6195388D20070C39A /* TFViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -227,11 +243,56 @@
 				9002F40C1AD93A6D007E3811 /* MyHeaderView.h */,
 				9002F40D1AD93A6D007E3811 /* MyHeaderView.m */,
 				9002F40E1AD93A6D007E3811 /* MyHeaderView.xib */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		EEB673441AEAF8FE00667551 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				EEB673461AEAF94100667551 /* Actions */,
+				EEB673451AEAF91500667551 /* RowManipulation */,
+			);
+			name = Sections;
+			sourceTree = "<group>";
+		};
+		EEB673451AEAF91500667551 /* RowManipulation */ = {
+			isa = PBXGroup;
+			children = (
+				9002F4051AD93A6D007E3811 /* Classes */,
+				6003F5A5195388D20070C39A /* TFViewController.h */,
+				6003F5A6195388D20070C39A /* TFViewController.m */,
+			);
+			name = RowManipulation;
+			sourceTree = "<group>";
+		};
+		EEB673461AEAF94100667551 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6734D1AEAFC3000667551 /* Classes */,
+				EEB6734A1AEAFC2C00667551 /* TFActionsViewController.h */,
+				EEB6734B1AEAFC2C00667551 /* TFActionsViewController.m */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		EEB6734D1AEAFC3000667551 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
 				90D779FE1AE0EEBF00A87A19 /* MyButtonCell.h */,
 				90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */,
 				90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */,
+				EEB6734E1AEB000F00667551 /* MyWideButtonCell.h */,
+				EEB6734F1AEB000F00667551 /* MyWideButtonCell.m */,
+				EEB673501AEB000F00667551 /* MyWideButtonCell.xib */,
+				EEB673531AEB0CE700667551 /* MyControlsCell.h */,
+				EEB673541AEB0CE700667551 /* MyControlsCell.m */,
+				EEB673551AEB0CE700667551 /* MyControlsCell.xib */,
+				EEB6735B1AEB131F00667551 /* MySliderCell.h */,
+				EEB6735C1AEB131F00667551 /* MySliderCell.m */,
+				EEB6735D1AEB131F00667551 /* MySliderCell.xib */,
 			);
-			path = Classes;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,13 +376,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEB673521AEB000F00667551 /* MyWideButtonCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				9002F4101AD93A6D007E3811 /* MyCustomCell.xib in Resources */,
 				9002F4141AD93A6D007E3811 /* MyHeaderView.xib in Resources */,
 				9002F4171AD93CCE007E3811 /* Main.storyboard in Resources */,
 				9002F4121AD93A6D007E3811 /* MyDynamicCustomCell.xib in Resources */,
+				EEB6735F1AEB131F00667551 /* MySliderCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				90D77A021AE0EEC000A87A19 /* MyButtonCell.xib in Resources */,
+				EEB673571AEB0CE700667551 /* MyControlsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,8 +471,12 @@
 				6003F59E195388D20070C39A /* TFAppDelegate.m in Sources */,
 				9002F4111AD93A6D007E3811 /* MyDynamicCustomCell.m in Sources */,
 				6003F5A7195388D20070C39A /* TFViewController.m in Sources */,
+				EEB673561AEB0CE700667551 /* MyControlsCell.m in Sources */,
 				9002F4131AD93A6D007E3811 /* MyHeaderView.m in Sources */,
+				EEB6734C1AEAFC2C00667551 /* TFActionsViewController.m in Sources */,
+				EEB673511AEB000F00667551 /* MyWideButtonCell.m in Sources */,
 				90D77A011AE0EEC000A87A19 /* MyButtonCell.m in Sources */,
+				EEB6735E1AEB131F00667551 /* MySliderCell.m in Sources */,
 				9002F40F1AD93A6D007E3811 /* MyCustomCell.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
