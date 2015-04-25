@@ -12,7 +12,7 @@
 @implementation MyWideButtonCell
 
 +(NSNumber *)height{
-    return @60;
+    return @130;
 }
 
 - (IBAction)buttonAction:(id)sender {

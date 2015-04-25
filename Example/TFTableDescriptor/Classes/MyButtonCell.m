@@ -11,8 +11,8 @@
 
 @implementation MyButtonCell
 
-+ (NSNumber *)height {
-    return @60.0;
++(NSNumber *)height{
+    return @130;
 }
 
 - (IBAction)buttonActions:(id)sender {

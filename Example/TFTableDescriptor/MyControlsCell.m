@@ -12,6 +12,10 @@
 
 @implementation MyControlsCell
 
++(NSNumber *)height{
+    return @100;
+}
+
 - (IBAction)switchChangedValue:(id)sender {
     if ([self.rowDescriptor canTriggerAction]) {
         [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender actionType:MyControlsCellActionTypeSwitch]];

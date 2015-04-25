@@ -40,6 +40,17 @@
     // Describe table
     section = [TFSectionDescriptor descriptorWithTag:0 data:@"Section with buttons"];
 
+    
+    // wide button
+    
+    row = [TFRowDescriptor descriptorWithRowClass:[MyWideButtonCell class] data:nil tag:nil];
+    [row setActionBlock:^(TFRowAction *action) {
+        [self showAlert:@"Button action triggered" withAction:action];
+    }];
+    
+    [section addRow:row];
+    
+    
     // buttons
     
     row = [TFRowDescriptor descriptorWithRowClass:[MyButtonCell class] data:nil tag:nil];
@@ -52,16 +63,6 @@
     }];
     
     [row setTarget:self withSelector:@selector(cellActionTrigger:)];
-    
-    [section addRow:row];
-    
-    
-    // wide button
-    
-    row = [TFRowDescriptor descriptorWithRowClass:[MyWideButtonCell class] data:nil tag:nil];
-    [row setActionBlock:^(TFRowAction *action) {
-        [self showAlert:@"Button action triggered" withAction:action];
-    }];
     
     [section addRow:row];
     
