@@ -611,7 +611,7 @@
 				GCC_PREFIX_HEADER = "TFTableDescriptor/TFTableDescriptor-Prefix.pch";
 				INFOPLIST_FILE = "TFTableDescriptor/TFTableDescriptor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f5968f1e-0e25-4f89-8a72-3e60c25d40fc";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -626,7 +626,7 @@
 				GCC_PREFIX_HEADER = "TFTableDescriptor/TFTableDescriptor-Prefix.pch";
 				INFOPLIST_FILE = "TFTableDescriptor/TFTableDescriptor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f5968f1e-0e25-4f89-8a72-3e60c25d40fc";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
