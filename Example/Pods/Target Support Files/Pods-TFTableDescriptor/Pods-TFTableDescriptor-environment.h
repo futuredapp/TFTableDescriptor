@@ -8,7 +8,7 @@
 
 // TFTableDescriptor
 #define COCOAPODS_POD_AVAILABLE_TFTableDescriptor
-#define COCOAPODS_VERSION_MAJOR_TFTableDescriptor 0
-#define COCOAPODS_VERSION_MINOR_TFTableDescriptor 3
+#define COCOAPODS_VERSION_MAJOR_TFTableDescriptor 1
+#define COCOAPODS_VERSION_MINOR_TFTableDescriptor 0
 #define COCOAPODS_VERSION_PATCH_TFTableDescriptor 0
 

@@ -1,6 +1,6 @@
 {
   "name": "TFTableDescriptor",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "summary": "Simple table descriptor with dynamic cell height support",
   "description": "                       TFTableDescriptor is simple table descriptor that helps you describe how a table content should looks like (sections, row). It have a dynamic cell height support for iOS 7 and higher.\n",
   "homepage": "https://github.com/thefuntasty/TFTableDescriptor",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/thefuntasty/TFTableDescriptor.git",
-    "tag": "0.3.0"
+    "tag": "1.0.0"
   },
   "platforms": {
     "ios": "7.0"

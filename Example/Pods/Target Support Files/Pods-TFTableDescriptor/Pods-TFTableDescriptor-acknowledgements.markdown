@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## TFTableDescriptor
 
-Copyright (c) 2015 Ales Kocur <ales@thefuntasty.com>
+Copyright (c) 2015 The Funtasty <ales@thefuntasty.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
