@@ -29,6 +29,7 @@
 
 @interface TFTableDescriptor : NSObject<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, readonly) BOOL isBeingUpdated;
 @property (nonatomic, assign) id<TFTableDescriptorDelegate> delegate;
 
 + (instancetype)descriptor;
@@ -75,6 +76,13 @@
 
 - (void)removeRow:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation;
+
+// control animation flow
+
+/// Start manipulation with table
+- (void)beginUpdates;
+/// Commit changes in table
+- (void)endUpdates;
 
 
 @end

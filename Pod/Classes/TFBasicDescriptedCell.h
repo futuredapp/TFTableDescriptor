@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TFRowDescriptor.h"
 
 @protocol TFTableDescriptorConfigurableCellProtocol <NSObject>
 
@@ -19,7 +20,6 @@
 
 @end
 
-@class TFRowDescriptor;
 
 @interface TFBasicDescriptedCell : UITableViewCell<TFTableDescriptorConfigurableCellProtocol>
 

@@ -7,7 +7,6 @@
 //
 
 #import "MyButtonCell.h"
-#import <TFRowDescriptor.h>
 
 @implementation MyButtonCell
 

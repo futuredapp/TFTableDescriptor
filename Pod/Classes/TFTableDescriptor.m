@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) NSCache *cellSizeCache;
 @property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *array;
 
 @end
 
@@ -31,6 +32,15 @@
     tableView.delegate = descriptor;
     
     return descriptor;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _isBeingUpdated = false;
+    }
+    return self;
 }
 
 - (NSMutableArray *)sections {
@@ -304,8 +314,10 @@
     NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
     
     [section addRowToTop:row];
-    
-    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
+       
+    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+
     
 }
 
@@ -313,9 +325,10 @@
     NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
     
     [section addRowToBottom:row];
-    
-    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
-    
+    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
+        
+    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+
 }
 
 - (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow rowAnimation:(UITableViewRowAnimation)rowAnimation {
@@ -324,8 +337,10 @@
     NSAssert(inFrontOfRow.section != nil, @"Trying to add cell in front of cell which is not in section!");
     
     [inFrontOfRow.section addRow:row inFronOfRow:inFrontOfRow];
+    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
     
-    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    
     
 }
 
@@ -333,26 +348,26 @@
     
     NSAssert(afterRow != nil, @"afterRow cannot be nil!");
     NSAssert(afterRow.section != nil, @"Trying to add cell after cell which is not in section!");
-    
+
     [afterRow.section addRow:row afterRow:afterRow];
+    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
     
-    [self updateTableForInsertionAtIndexPath:[self indexPathForRow:row] rowAnimation:rowAnimation];
+    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+
 }
 
 - (void)updateTableForInsertionAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self insertCellSizeCacheAtIndexPath:indexPath];
     
-    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
-    [self.tableView endUpdates];
+
 }
 
 - (void)updateTableForDeleteAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self deleteCellSizeCacheAtIndexPath:indexPath];
     
-    [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
-    [self.tableView endUpdates];
+
 }
 
 #pragma mark - Removing rows
@@ -369,9 +384,11 @@
     
     NSAssert(row != nil, @"Row cannot be nil!");
     
-    NSIndexPath *indexPath = [self indexPathForRow:row];
     [row.section removeRow:row];
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+
     [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:rowAnimation];
+        
 }
 
 - (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation {
@@ -447,6 +464,24 @@
 //    
 //    return footer;
 //}
+
+#pragma mark - Table updates
+
+/// Start manipulation with table
+- (void)beginUpdates {
+    
+    [self.tableView beginUpdates];
+    _isBeingUpdated = true;
+
+}
+
+/// Commit changes in table
+- (void)endUpdates {
+    
+    [self.tableView endUpdates];
+    _isBeingUpdated = false;
+    
+}
 
 
 @end

@@ -63,7 +63,8 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     [row setActionBlock:^(TFRowAction *action) {
         
         if (action.actionType == MyButtonCellActionTypeTriggerButton1) {
-            [[[UIAlertView alloc] initWithTitle:@"Action block" message:@"This message was triggered by block" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+            [self.tableDescriptor beginUpdates];
+            [[[UIAlertView alloc] initWithTitle:@"Update mode" message:@"Changes will be performed after commit" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         }
     
     }];
@@ -167,8 +168,6 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
             } else {
                 NSLog(@"No rows to delete");
             }
-            
-            
         }
         
     }
@@ -178,7 +177,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
 - (void)cellActionTrigger:(TFRowAction *)action {
     if (action.actionType == MyButtonCellActionTypeTriggerButton2) {
 
-        [[[UIAlertView alloc] initWithTitle:@"Action selector" message:@"This message was triggered by selector" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+       [self.tableDescriptor endUpdates];
 
     }
 }
