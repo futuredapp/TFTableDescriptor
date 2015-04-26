@@ -31,6 +31,7 @@
 
 @property (nonatomic, readonly) BOOL isBeingUpdated;
 @property (nonatomic, assign) id<TFTableDescriptorDelegate> delegate;
+@property (nonatomic, strong) UITableView *tableView;
 
 + (instancetype)descriptor;
 + (instancetype)descriptorWithTable:(UITableView *)tableView;
@@ -58,7 +59,8 @@
 /// Returns UITableViewCell for given row descriptor
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
 
-// Inserting rows
+#pragma mark - Inserting rows
+
 - (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section;
 - (void)insertRow:(TFRowDescriptor *)row atBottomOfSection:(TFSectionDescriptor *)section;
 - (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow;
@@ -69,7 +71,7 @@
 - (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)insertRow:(TFRowDescriptor *)row afterRow:(TFRowDescriptor *)afterRow rowAnimation:(UITableViewRowAnimation)rowAnimation;
 
-// Remove row
+#pragma mark - Deleting rows
 
 - (void)removeRow:(TFRowDescriptor *)row;
 - (void)removeRowWithTag:(NSString *)tag;
@@ -77,7 +79,7 @@
 - (void)removeRow:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation;
 
-// control animation flow
+#pragma mark - Animation flow control
 
 /// Start manipulation with table
 - (void)beginUpdates;

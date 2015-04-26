@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) NSCache *cellSizeCache;
-@property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *array;
 
 @end
