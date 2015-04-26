@@ -10,18 +10,8 @@
 
 @implementation MyButtonCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-+ (NSNumber *)height {
-    return @60.0;
++(NSNumber *)height{
+    return @130;
 }
 
 - (IBAction)buttonActions:(id)sender {

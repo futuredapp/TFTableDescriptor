@@ -1,6 +1,6 @@
 PODS:
   - Kiwi (2.3.1)
-  - TFTableDescriptor (0.1.0)
+  - TFTableDescriptor (0.3.0)
 
 DEPENDENCIES:
   - Kiwi
@@ -8,10 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   TFTableDescriptor:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
-  TFTableDescriptor: 7bd743a7040ecee31ae2edf474b8b39d8bc40853
+  TFTableDescriptor: c06a5540cc593f1dbe9edcb014f6ad0184aac47e
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.36.4
