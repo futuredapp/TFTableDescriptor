@@ -13,9 +13,9 @@
 @interface TFRowAction : NSObject
 
 @property (nonatomic, strong) id sender;
-@property NSInteger actionType;
+@property NSInteger type;
 
-+ (instancetype)actionWithSender:(id)sender actionType:(NSInteger)actionType;
++ (instancetype)actionWithSender:(id)sender type:(NSInteger)type;
 
 @end
 

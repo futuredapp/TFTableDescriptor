@@ -56,7 +56,7 @@
     row = [TFRowDescriptor descriptorWithRowClass:[MyButtonCell class] data:nil tag:nil];
     [row setActionBlock:^(TFRowAction *action) {
         
-        if (action.actionType != MyButtonCellActionTypeTriggerButton2) {
+        if (action.type != MyButtonCellActionTypeTriggerButton2) {
             [self showAlert:@"This message was triggered by block" withAction:action];
         }
         
@@ -70,9 +70,9 @@
     // controls
     row = [TFRowDescriptor descriptorWithRowClass:[MyControlsCell class] data:nil];
     [row setActionBlock:^(TFRowAction *action) {
-        if (action.actionType == MyControlsCellActionTypeSwitch) {
+        if (action.type == MyControlsCellActionTypeSwitch) {
             [self showAlert:@"Switch action triggered" withAction:action];
-        }else if (action.actionType == MyControlsCellActionTypeSegmend){
+        }else if (action.type == MyControlsCellActionTypeSegmend){
             [self showAlert:@"Segment action triggered" withAction:action];
         }
     }];
@@ -98,7 +98,7 @@
 }
 
 - (void)cellActionTrigger:(TFRowAction *)action {
-    if (action.actionType == MyButtonCellActionTypeTriggerButton2) {
+    if (action.type == MyButtonCellActionTypeTriggerButton2) {
         [self showAlert:@"This message was triggered by selector on button" withAction:action];
     }
 }

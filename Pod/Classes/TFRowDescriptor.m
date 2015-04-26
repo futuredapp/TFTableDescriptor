@@ -10,10 +10,10 @@
 
 @implementation TFRowAction
 
-+ (instancetype)actionWithSender:(id)sender actionType:(NSInteger)actionType {
++ (instancetype)actionWithSender:(id)sender type:(NSInteger)type {
     TFRowAction *action = [[TFRowAction alloc] init];
     action.sender = sender;
-    action.actionType = actionType;
+    action.type = type;
     return action;
 }
 
