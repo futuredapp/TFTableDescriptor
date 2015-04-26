@@ -11,7 +11,7 @@
 
 typedef NS_ENUM(NSInteger, MyControlsCellActionType) {
     MyControlsCellActionTypeSwitch,
-    MyControlsCellActionTypeSegmend
+    MyControlsCellActionTypeSegment
 };
 
 @interface MyControlsCell : TFBasicDescriptedCell

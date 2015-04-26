@@ -13,8 +13,6 @@
 
 @implementation MySliderCell
 
-
-
 -(void)awakeFromNib{
     [super awakeFromNib];
     

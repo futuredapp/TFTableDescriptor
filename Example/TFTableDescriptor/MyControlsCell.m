@@ -24,7 +24,7 @@
 
 - (IBAction)segmendSelected:(id)sender {
     if ([self.rowDescriptor canTriggerAction]) {
-        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender type:MyControlsCellActionTypeSegmend]];
+        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender type:MyControlsCellActionTypeSegment]];
     }
 }
 

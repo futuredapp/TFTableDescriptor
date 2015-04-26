@@ -72,7 +72,7 @@
     [row setActionBlock:^(TFRowAction *action) {
         if (action.type == MyControlsCellActionTypeSwitch) {
             [self showAlert:@"Switch action triggered" withAction:action];
-        }else if (action.type == MyControlsCellActionTypeSegmend){
+        }else if (action.type == MyControlsCellActionTypeSegment){
             [self showAlert:@"Segment action triggered" withAction:action];
         }
     }];
