@@ -52,26 +52,6 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     TFSectionDescriptor *section;
     TFRowDescriptor *row;
     
-    // Describe table
-    section = [TFSectionDescriptor descriptorWithTag:TableSectionTagButtons data:@"Section with buttons"];
-    // Set class of header
-    section.sectionClass = [MyHeaderView class];
-    row = [TFRowDescriptor descriptorWithRowClass:[MyButtonCell class] data:nil tag:nil];
-    [row setActionBlock:^(TFRowAction *action) {
-        
-        if (action.actionType == MyButtonCellActionTypeTriggerButton1) {
-            [self.tableDescriptor beginUpdates];
-            [[[UIAlertView alloc] initWithTitle:@"Update mode" message:@"Changes will be performed after commit" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
-        }
-    
-    }];
-    
-    [row setTarget:self withSelector:@selector(cellActionTrigger:)];
-    
-    [section addRow:row];
-
-    [table addSection:section];
-    
     
     // Create section
     section = [TFSectionDescriptor descriptorWithTag:TableSectionTagStaticRows data:@"Section with static rows"];
@@ -94,7 +74,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     
     row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Remove from top" tag:kRowTagCellForRemove];
     [section addRow:row];
-
+    
     
     // Add section into table
     [table addSection:section];
@@ -122,7 +102,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
 
 - (void)tableDescriptor:(TFTableDescriptor *)descriptor didSelectRow:(TFRowDescriptor *)rowDescriptor {
     
-//    UITableViewCell *cell = [self.tableDescriptor cellForRow:rowDescriptor];
+    //    UITableViewCell *cell = [self.tableDescriptor cellForRow:rowDescriptor];
     
     if (rowDescriptor.tag) {
         NSLog(@"Did select row with tag: %@ data: %@", rowDescriptor.tag, rowDescriptor.data);
@@ -165,18 +145,12 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
             } else {
                 NSLog(@"No rows to delete");
             }
+            
+            
         }
         
     }
     
-}
-
-- (void)cellActionTrigger:(TFRowAction *)action {
-    if (action.actionType == MyButtonCellActionTypeTriggerButton2) {
-
-       [self.tableDescriptor endUpdates];
-
-    }
 }
 
 // If you want handle header heights by yourself
@@ -187,7 +161,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
 //    } else if (sectionDescriptor.tag == TableSectionTagDynamicRows) {
 //        return 46.0;
 //    }
-//    
+//
 //    return 0.0;
 //}
 

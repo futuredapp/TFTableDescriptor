@@ -384,8 +384,9 @@
     
     NSAssert(row != nil, @"Row cannot be nil!");
     
-    [row.section removeRow:row];
     NSIndexPath *indexPath = [self indexPathForRow:row];
+
+    [row.section removeRow:row];
 
     [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:rowAnimation];
         
