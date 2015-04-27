@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class TFRowDescriptor;
+@class TFRowDescriptor, TFTableDescriptor;
 
 @interface TFSectionDescriptor : NSObject
 
 @property (nonatomic) NSInteger tag;
 @property (nonatomic) Class sectionClass;
 @property (nonatomic) id data;
+@property (weak, nonatomic) TFTableDescriptor *tableDescriptor;
 
 + (instancetype)descriptorWithData:(id)data;
 + (instancetype)descriptorWithTag:(NSInteger)tag data:(id)data;

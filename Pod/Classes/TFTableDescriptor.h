@@ -59,6 +59,10 @@
 /// Returns UITableViewCell for given row descriptor
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
 
+#pragma mark - Access rows
+
+- (NSArray *)allRows;
+
 #pragma mark - Inserting rows
 
 - (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section;

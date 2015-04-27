@@ -52,6 +52,7 @@
 
 - (void)addSection:(TFSectionDescriptor *)sectionDescriptor {
     [self.sections addObject:sectionDescriptor];
+    sectionDescriptor.tableDescriptor = self;
 }
 
 - (NSInteger)numberOfSections {
@@ -73,6 +74,18 @@
     }
     
     return nil;
+}
+
+#pragma mark - Row access
+
+- (NSArray *)allRows {
+    NSMutableArray *rows = [@[] mutableCopy];
+    
+    for (TFSectionDescriptor *sectionDescriptor in self.sections) {
+        [rows addObjectsFromArray:[sectionDescriptor allRows]];
+    }
+    
+    return [rows copy];
 }
 
 
