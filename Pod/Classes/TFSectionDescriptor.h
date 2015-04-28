@@ -13,8 +13,8 @@
 @interface TFSectionDescriptor : NSObject
 
 @property (nonatomic) NSInteger tag;
-@property (nonatomic) Class headerClass;
-@property (nonatomic) Class footerClass;
+@property (nonatomic) Class sectionHeaderClass;
+@property (nonatomic) Class sectionFooterClass;
 @property (nonatomic) id data;
 @property (weak, nonatomic) TFTableDescriptor *tableDescriptor;
 

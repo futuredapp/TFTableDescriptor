@@ -276,9 +276,9 @@
     
     TFBasicDescriptedHeaderFooterView *view = nil;
     
-    if (sectionDescriptor.headerClass) {
+    if (sectionDescriptor.sectionHeaderClass) {
     
-        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.headerClass performSelector:@selector(identifier)]];
+        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.sectionHeaderClass performSelector:@selector(identifier)]];
     } else {
         return nil;
     }
@@ -299,8 +299,8 @@
 
     TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
     
-    if ([sectionDescriptor.headerClass respondsToSelector:@selector(height)]) {
-        return [[sectionDescriptor.headerClass performSelector:@selector(height)] floatValue];
+    if ([sectionDescriptor.sectionHeaderClass respondsToSelector:@selector(height)]) {
+        return [[sectionDescriptor.sectionHeaderClass performSelector:@selector(height)] floatValue];
     } else if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForSection:)]) {
         return [self.delegate tableDescriptor:self heightForSection:sectionDescriptor];
     } else {
@@ -314,9 +314,9 @@
     
     TFBasicDescriptedHeaderFooterView *view = nil;
     
-    if (sectionDescriptor.footerClass) {
+    if (sectionDescriptor.sectionFooterClass) {
         
-        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.footerClass performSelector:@selector(identifier)]];
+        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.sectionFooterClass performSelector:@selector(identifier)]];
     } else {
         return nil;
     }
@@ -337,8 +337,8 @@
     
     TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
     
-    if ([sectionDescriptor.footerClass respondsToSelector:@selector(height)]) {
-        return [[sectionDescriptor.footerClass performSelector:@selector(height)] floatValue];
+    if ([sectionDescriptor.sectionFooterClass respondsToSelector:@selector(height)]) {
+        return [[sectionDescriptor.sectionFooterClass performSelector:@selector(height)] floatValue];
     } else if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForSection:)]) {
         return [self.delegate tableDescriptor:self heightForSection:sectionDescriptor];
     } else {
