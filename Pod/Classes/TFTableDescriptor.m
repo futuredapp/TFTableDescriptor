@@ -59,6 +59,16 @@
     return self.sections.count;
 }
 
+
+#pragma mark - Section access
+
+- (NSArray *)allSections{
+    return [NSArray arrayWithArray:self.sections];
+}
+- (NSArray *)allVisibleSections{
+    return [[self allSections] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hidden = NO"]];
+}
+
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section {
     if (section >= self.sections.count) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"sectionIndex": @(section), @"sections": self.sections}] raise];
@@ -86,6 +96,10 @@
     }
     
     return [rows copy];
+}
+
+- (NSArray *)allVisibleRows{
+    return [[self allRows] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hidden = NO"]];
 }
 
 
@@ -129,18 +143,14 @@
 }
 
 - (NSIndexPath *)indexPathForRow:(TFRowDescriptor *)row {
-    NSUInteger sectionIndex = 0;
+    NSUInteger sectionIndex = [self.sections indexOfObject:row.section];
+    NSUInteger rowIndex = [[row.section allRows] indexOfObject:row];
     
-    for (TFSectionDescriptor *section in self.sections) {
-        for (int ri = 0; ri < section.numberOfRows; ri++) {
-            if ([[section rowAtRowIndex:ri] isEqual:row]) {
-                return [NSIndexPath indexPathForRow:ri inSection:sectionIndex];
-            }
-        }
-        sectionIndex++;
+    if (sectionIndex == NSNotFound || rowIndex == NSNotFound) {
+        return nil;
     }
     
-    return nil;
+    return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
 }
 
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row {
@@ -171,7 +181,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return [self numberOfSections];
+    return [self numberOfVisibleSections];
     
 }
 
@@ -179,7 +189,7 @@
     
     // Return the number of rows in the section.
     
-    return [[self sectionAtSectionIndex:section] numberOfRows];
+    return [[self sectionAtSectionIndex:section] numberOfVisibleRows];
 }
 
 
@@ -530,5 +540,24 @@
     
 }
 
+
+#pragma mark - Visibility
+
+- (NSInteger)numberOfVisibleSections{
+    return [self allVisibleSections].count;
+}
+
+- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row{
+    NSAssert(row != nil, @"row must not be nil");
+    
+    NSInteger sectionIndex = [[self allVisibleSections] indexOfObject:row.section];
+    NSInteger rowIndex = [[row.section allVisibleRows] indexOfObject:row];
+    
+    if (sectionIndex == NSNotFound || rowIndex == NSNotFound) {
+        return nil;
+    }
+    
+    return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+}
 
 @end

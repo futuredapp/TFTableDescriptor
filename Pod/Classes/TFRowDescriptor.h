@@ -28,6 +28,8 @@
 @property (nonatomic, weak) TFSectionDescriptor *section;
 @property (nonatomic, copy) void (^actionBlock)(TFRowAction *action);
 
+@property (nonatomic,getter=isHidden) BOOL hidden;
+
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data;
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data tag:(NSString *)tag;
 
@@ -37,5 +39,9 @@
 /// Determine if action can be triggered
 - (BOOL)canTriggerAction;
 - (void)triggerAction:(TFRowAction *)action;
+
+#pragma mark - Visibility
+
+-(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
 
 @end

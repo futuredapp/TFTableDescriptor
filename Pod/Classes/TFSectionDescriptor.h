@@ -18,6 +18,8 @@
 @property (nonatomic) id data;
 @property (weak, nonatomic) TFTableDescriptor *tableDescriptor;
 
+@property (nonatomic,getter=isHidden) BOOL hidden;
+
 + (instancetype)descriptorWithData:(id)data;
 + (instancetype)descriptorWithTag:(NSInteger)tag data:(id)data;
 
@@ -32,5 +34,13 @@
 - (NSArray *)allRows;
 - (NSInteger)numberOfRows;
 - (TFRowDescriptor *)rowAtRowIndex:(NSInteger)rowIndex;
+
+
+#pragma mark - Visibility
+
+- (NSArray *)allVisibleRows;
+- (NSInteger)numberOfVisibleRows;
+
+-(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
 
 @end

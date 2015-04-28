@@ -8,6 +8,7 @@
 
 #import "TFSectionDescriptor.h"
 #import "TFRowDescriptor.h"
+#import "TFTableDescriptor.h"
 
 @interface TFSectionDescriptor()
 
@@ -110,5 +111,36 @@
 - (NSArray *)allRows {
     return [self.rows copy];
 }
+
+#pragma mark - Visibility
+
+- (NSArray *)allVisibleRows{
+    return [[self allRows] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hidden = NO"]];
+}
+- (NSInteger)numberOfVisibleRows{
+    return [self allVisibleRows].count;
+}
+
+-(void)setHidden:(BOOL)hidden{
+    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+-(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
+    if(hidden == _hidden)return;
+    
+    if (hidden) {
+        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
+        [self.tableDescriptor.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+    }
+    
+    _hidden = YES;
+    
+    if (!hidden) {
+        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
+        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+    }
+}
+
+
+
 
 @end

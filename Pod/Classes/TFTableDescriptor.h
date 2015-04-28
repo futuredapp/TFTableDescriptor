@@ -42,14 +42,6 @@
 /// Returns number of sections
 - (NSInteger)numberOfSections;
 
-/// Returns section at given index
-- (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section;
-- (TFSectionDescriptor *)sectionForTag:(NSInteger)tag;
-
-/// Returns row at given NSIndexPath
-- (TFRowDescriptor *)rowAtIndexPath:(NSIndexPath *)indexPath;
-- (TFRowDescriptor *)rowForTag:(NSString *)tag;
-
 /// Returns NSIndexPath for specific row tag
 - (NSIndexPath *)indexPathForRowTag:(NSString *)tag;
 
@@ -59,9 +51,23 @@
 /// Returns UITableViewCell for given row descriptor
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
 
+#pragma mark - Access sections
+
+- (NSArray *)allSections;
+- (NSArray *)allVisibleSections;
+
+/// Returns section at given index
+- (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section;
+- (TFSectionDescriptor *)sectionForTag:(NSInteger)tag;
+
 #pragma mark - Access rows
 
 - (NSArray *)allRows;
+- (NSArray *)allVisibleRows;
+
+/// Returns row at given NSIndexPath
+- (TFRowDescriptor *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (TFRowDescriptor *)rowForTag:(NSString *)tag;
 
 #pragma mark - Inserting rows
 
@@ -89,6 +95,14 @@
 - (void)beginUpdates;
 /// Commit changes in table
 - (void)endUpdates;
+
+
+#pragma mark - Visibility
+
+/// Returns number of visible sections
+- (NSInteger)numberOfVisibleSections;
+
+- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 
 @end

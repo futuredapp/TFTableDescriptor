@@ -33,6 +33,9 @@
 		90D77A011AE0EEC000A87A19 /* MyButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D779FF1AE0EEBF00A87A19 /* MyButtonCell.m */; };
 		90D77A021AE0EEC000A87A19 /* MyButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D77A001AE0EEBF00A87A19 /* MyButtonCell.xib */; };
 		B806B7677F6ED738B9C04DBD /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB099386623574BC8770406E /* libPods-Tests.a */; };
+		EEA826F21AEFBBD000EEFA04 /* TFVisibilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA826F11AEFBBD000EEFA04 /* TFVisibilityViewController.m */; };
+		EEA826F71AEFBBF000EEFA04 /* MyVisibilityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA826F51AEFBBF000EEFA04 /* MyVisibilityCell.m */; };
+		EEA826F81AEFBBF000EEFA04 /* MyVisibilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA826F61AEFBBF000EEFA04 /* MyVisibilityCell.xib */; };
 		EEB6734C1AEAFC2C00667551 /* TFActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB6734B1AEAFC2C00667551 /* TFActionsViewController.m */; };
 		EEB673511AEB000F00667551 /* MyWideButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB6734F1AEB000F00667551 /* MyWideButtonCell.m */; };
 		EEB673521AEB000F00667551 /* MyWideButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB673501AEB000F00667551 /* MyWideButtonCell.xib */; };
@@ -92,6 +95,11 @@
 		DB099386623574BC8770406E /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6A5E17598B78E4157830E2 /* libPods-TFTableDescriptor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TFTableDescriptor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEBC0CB6DE9BA16BF3C5BB8F /* TFTableDescriptor.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TFTableDescriptor.podspec; path = ../TFTableDescriptor.podspec; sourceTree = "<group>"; };
+		EEA826F01AEFBBD000EEFA04 /* TFVisibilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFVisibilityViewController.h; sourceTree = "<group>"; };
+		EEA826F11AEFBBD000EEFA04 /* TFVisibilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFVisibilityViewController.m; sourceTree = "<group>"; };
+		EEA826F41AEFBBF000EEFA04 /* MyVisibilityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVisibilityCell.h; sourceTree = "<group>"; };
+		EEA826F51AEFBBF000EEFA04 /* MyVisibilityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVisibilityCell.m; sourceTree = "<group>"; };
+		EEA826F61AEFBBF000EEFA04 /* MyVisibilityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyVisibilityCell.xib; sourceTree = "<group>"; };
 		EEB6734A1AEAFC2C00667551 /* TFActionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFActionsViewController.h; sourceTree = "<group>"; };
 		EEB6734B1AEAFC2C00667551 /* TFActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFActionsViewController.m; sourceTree = "<group>"; };
 		EEB6734E1AEB000F00667551 /* MyWideButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWideButtonCell.h; sourceTree = "<group>"; };
@@ -247,9 +255,30 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		EEA826EF1AEFBBBA00EEFA04 /* Visibility */ = {
+			isa = PBXGroup;
+			children = (
+				EEA826F31AEFBBDE00EEFA04 /* Classes */,
+				EEA826F01AEFBBD000EEFA04 /* TFVisibilityViewController.h */,
+				EEA826F11AEFBBD000EEFA04 /* TFVisibilityViewController.m */,
+			);
+			name = Visibility;
+			sourceTree = "<group>";
+		};
+		EEA826F31AEFBBDE00EEFA04 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				EEA826F41AEFBBF000EEFA04 /* MyVisibilityCell.h */,
+				EEA826F51AEFBBF000EEFA04 /* MyVisibilityCell.m */,
+				EEA826F61AEFBBF000EEFA04 /* MyVisibilityCell.xib */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		EEB673441AEAF8FE00667551 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				EEA826EF1AEFBBBA00EEFA04 /* Visibility */,
 				EEB673461AEAF94100667551 /* Actions */,
 				EEB673451AEAF91500667551 /* RowManipulation */,
 			);
@@ -378,6 +407,7 @@
 			files = (
 				EEB673521AEB000F00667551 /* MyWideButtonCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				EEA826F81AEFBBF000EEFA04 /* MyVisibilityCell.xib in Resources */,
 				9002F4101AD93A6D007E3811 /* MyCustomCell.xib in Resources */,
 				9002F4141AD93A6D007E3811 /* MyHeaderView.xib in Resources */,
 				9002F4171AD93CCE007E3811 /* Main.storyboard in Resources */,
@@ -476,9 +506,11 @@
 				EEB6734C1AEAFC2C00667551 /* TFActionsViewController.m in Sources */,
 				EEB673511AEB000F00667551 /* MyWideButtonCell.m in Sources */,
 				90D77A011AE0EEC000A87A19 /* MyButtonCell.m in Sources */,
+				EEA826F21AEFBBD000EEFA04 /* TFVisibilityViewController.m in Sources */,
 				EEB6735E1AEB131F00667551 /* MySliderCell.m in Sources */,
 				9002F40F1AD93A6D007E3811 /* MyCustomCell.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				EEA826F71AEFBBF000EEFA04 /* MyVisibilityCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

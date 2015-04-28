@@ -8,6 +8,9 @@
 
 #import "TFRowDescriptor.h"
 
+#import "TFSectionDescriptor.h"
+#import "TFTableDescriptor.h"
+
 @implementation TFRowAction
 
 + (instancetype)actionWithSender:(id)sender type:(NSInteger)type {
@@ -73,6 +76,35 @@
         self.actionBlock(action);
     }
     
+}
+
+#pragma mark - Visibility
+
+-(void)setHidden:(BOOL)hidden{
+    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+-(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
+    if(_hidden == hidden)return;
+    
+    NSIndexPath *indexPathToDelete = nil;
+    NSIndexPath *indexPathToInsert = nil;
+    
+    if (hidden) {
+        indexPathToDelete = [self.section.tableDescriptor indexPathForVisibleRow:self];
+    }
+    
+    _hidden = hidden;
+
+    if (!hidden) {
+        indexPathToInsert = [self.section.tableDescriptor indexPathForVisibleRow:self];
+    }
+
+    if (indexPathToInsert) {
+        [self.section.tableDescriptor.tableView insertRowsAtIndexPaths:@[indexPathToInsert] withRowAnimation:rowAnimation];
+    }
+    if (indexPathToDelete) {
+        [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
+    }
 }
 
 @end
