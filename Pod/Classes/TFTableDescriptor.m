@@ -266,9 +266,9 @@
     
     TFBasicDescriptedHeaderFooterView *view = nil;
     
-    if (sectionDescriptor.sectionClass) {
+    if (sectionDescriptor.headerClass) {
     
-        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.sectionClass performSelector:@selector(identifier)]];
+        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.headerClass performSelector:@selector(identifier)]];
     } else {
         return nil;
     }
@@ -289,8 +289,8 @@
 
     TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
     
-    if ([sectionDescriptor.sectionClass respondsToSelector:@selector(height)]) {
-        return [[sectionDescriptor.sectionClass performSelector:@selector(height)] floatValue];
+    if ([sectionDescriptor.headerClass respondsToSelector:@selector(height)]) {
+        return [[sectionDescriptor.headerClass performSelector:@selector(height)] floatValue];
     } else if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForSection:)]) {
         return [self.delegate tableDescriptor:self heightForSection:sectionDescriptor];
     } else {
@@ -298,8 +298,42 @@
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
+    
+    TFBasicDescriptedHeaderFooterView *view = nil;
+    
+    if (sectionDescriptor.footerClass) {
+        
+        view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.footerClass performSelector:@selector(identifier)]];
+    } else {
+        return nil;
+    }
+    
+    view.sectionDescriptor = sectionDescriptor;
+    
+    
+    if ([view conformsToProtocol:@protocol(TFTableDescriptorHeaderFooterProtocol)]) {
+        if (sectionDescriptor.data) {
+            [view configureWithData:sectionDescriptor.data];
+        }
+    }
+    
+    return view;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    
+    TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
+    
+    if ([sectionDescriptor.footerClass respondsToSelector:@selector(height)]) {
+        return [[sectionDescriptor.footerClass performSelector:@selector(height)] floatValue];
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForSection:)]) {
+        return [self.delegate tableDescriptor:self heightForSection:sectionDescriptor];
+    } else {
+        return CGFLOAT_MIN;
+    }
 }
 
 #pragma mark - Manipulating with table
