@@ -56,7 +56,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     // Create section
     section = [TFSectionDescriptor descriptorWithTag:TableSectionTagStaticRows data:@"Section with static rows"];
     // Set class of header
-    section.sectionClass = [MyHeaderView class];
+    section.headerClass = [MyHeaderView class];
     
     // Create row and add it to section
     row = [TFRowDescriptor descriptorWithRowClass:[MyCustomCell class] data:@"Add row at top" tag:kRowTagAddAtTop];
@@ -81,7 +81,7 @@ static NSString * const kRowTagCellForRemove = @"RowTagCellForRemove";
     
     // Create another section
     section = [TFSectionDescriptor descriptorWithTag:TableSectionTagDynamicRows data:@"Section with dynamic rows"];
-    section.sectionClass = [MyHeaderView class];
+    section.headerClass = [MyHeaderView class];
     
     // Create MyDynamicCustomCell cell
     row = [TFRowDescriptor descriptorWithRowClass:[MyDynamicCustomCell class] data:LONG_TEXT tag:kRowMyDynamicCell];
