@@ -154,7 +154,7 @@
 }
 
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row {
-    return [self.tableView cellForRowAtIndexPath:[self indexPathForRow:row]];
+    return [self tableView:self.tableView cellForRowAtIndexPath:[self indexPathForRow:row]];
 }
 
 #pragma mark - Lazy initializations
