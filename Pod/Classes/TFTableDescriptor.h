@@ -48,7 +48,7 @@
 /// Returns NSIndexPath for specific row descriptor
 - (NSIndexPath *)indexPathForRow:(TFRowDescriptor *)row;
 
-/// Returns UITableViewCell for given row descriptor
+/// Returns UITableViewCell for given row descriptor. If row is not visible returns nil.
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
 
 #pragma mark - Access sections
