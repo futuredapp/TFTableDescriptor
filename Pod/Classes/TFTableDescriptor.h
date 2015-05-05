@@ -24,10 +24,11 @@
 @optional
 - (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForSection:(TFSectionDescriptor *)sectionDescriptor;
 - (void)tableDescriptor:(TFTableDescriptor *)descriptor didSelectRow:(TFRowDescriptor *)rowDescriptor;
+- (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForRow:(TFRowDescriptor *)rowDescriptor;
 
 @end
 
-@interface TFTableDescriptor : NSObject<UITableViewDataSource, UITableViewDelegate>
+@interface TFTableDescriptor : NSObject<UITableViewDataSource, UITableViewDelegate, TFTableDescriptorDelegate>
 
 @property (nonatomic, readonly) BOOL isBeingUpdated;
 @property (nonatomic, assign) id<TFTableDescriptorDelegate> delegate;

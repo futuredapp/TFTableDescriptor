@@ -205,31 +205,38 @@
     
     TFRowDescriptor *row = [self rowAtIndexPath:indexPath];
     
-    if ([row.rowClass respondsToSelector:@selector(height)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForRow:)]) {
+        cellHeight = @([self.delegate tableDescriptor:self heightForRow:row]);
+    } else if ([row.rowClass respondsToSelector:@selector(height)]) {
+        
         cellHeight = [row.rowClass performSelector:@selector(height)];
         
     } else if ([row.rowClass respondsToSelector:@selector(identifier)]) {
-        UITableViewCell<TFTableDescriptorConfigurableCellProtocol> *cell = [self.tableView dequeueReusableCellWithIdentifier:[row.rowClass performSelector:@selector(identifier)]];
-        cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight(cell.bounds));
-        
-        if ([cell conformsToProtocol:@protocol(TFTableDescriptorConfigurableCellProtocol)]) {
-            [cell configureWithData:row.data];
-        }
-        [cell setNeedsLayout];
-        [cell layoutIfNeeded];
-        
-        cellHeight = @([cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
+        cellHeight = @([self calculateDynamicHeightForRow:row]);
         
         if (self.tableView.separatorStyle != UITableViewCellSeparatorStyleNone) {
             cellHeight = @(cellHeight.floatValue + 1.0);
         }
-        
         
     }
     
     [self.cellSizeCache setObject:cellHeight forKey:indexPath];
     
     return cellHeight.floatValue;
+    
+}
+
+- (CGFloat)calculateDynamicHeightForRow:(TFRowDescriptor *)row {
+    UITableViewCell<TFTableDescriptorConfigurableCellProtocol> *cell = [self.tableView dequeueReusableCellWithIdentifier:[row.rowClass performSelector:@selector(identifier)]];
+    cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight(cell.bounds));
+    
+    if ([cell conformsToProtocol:@protocol(TFTableDescriptorConfigurableCellProtocol)]) {
+        [cell configureWithData:row.data];
+    }
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    
+    return [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     
 }
 
@@ -260,6 +267,17 @@
     return cell;
 }
 
+- (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForRow:(TFRowDescriptor *)rowDescriptor {
+    
+    if ([rowDescriptor.rowClass respondsToSelector:@selector(height)]) {
+        return [[rowDescriptor.rowClass performSelector:@selector(height)] floatValue];
+    } else if ([rowDescriptor.rowClass respondsToSelector:@selector(identifier)]) {
+        return [self calculateDynamicHeightForRow:rowDescriptor];
+    } else {
+        return 0;
+    }
+    
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
