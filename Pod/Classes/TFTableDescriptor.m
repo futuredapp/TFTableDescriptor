@@ -533,6 +533,9 @@
     
 }
 
+- (void)invalidCellSizeAtIndexPath:(NSIndexPath *)rowIndexPath {
+    [self.cellSizeCache removeObjectForKey:rowIndexPath];
+}
 
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 //    RestaurantFooter *footer = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[RestaurantFooter identifier]];
@@ -558,6 +561,17 @@
     
 }
 
+- (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row {
+    
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+    
+    if (indexPath) {
+        [self invalidCellSizeAtIndexPath:indexPath];
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+}
 
 #pragma mark - Visibility
 

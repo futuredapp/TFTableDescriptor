@@ -105,6 +105,7 @@
 
 - (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
+- (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
 
 @end
 
