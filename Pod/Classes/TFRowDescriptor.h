@@ -7,18 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TFAction.h"
 
 @class TFSectionDescriptor;
-
-@interface TFAction : NSObject
-
-@property (nonatomic, strong) id sender;
-@property NSInteger type;
-
-+ (instancetype)actionWithSender:(id)sender type:(NSInteger)type;
-
-@end
-
 
 @interface TFRowDescriptor : NSObject
 

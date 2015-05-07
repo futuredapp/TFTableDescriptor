@@ -11,17 +11,6 @@
 #import "TFSectionDescriptor.h"
 #import "TFTableDescriptor.h"
 
-@implementation TFAction
-
-+ (instancetype)actionWithSender:(id)sender type:(NSInteger)type {
-    TFAction *action = [[TFAction alloc] init];
-    action.sender = sender;
-    action.type = type;
-    return action;
-}
-
-@end
-
 @interface TFRowDescriptor ()
 
 @property (weak) id target;
