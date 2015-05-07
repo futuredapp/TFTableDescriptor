@@ -80,11 +80,15 @@
 
 #pragma mark - Visibility
 
--(void)setHidden:(BOOL)hidden{
+- (void)setHidden:(BOOL)hidden {
     [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
 }
--(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
-    if(_hidden == hidden)return;
+
+- (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
+    if (_hidden == hidden) {
+        return;
+    }
     
     NSIndexPath *indexPathToDelete = nil;
     NSIndexPath *indexPathToInsert = nil;
