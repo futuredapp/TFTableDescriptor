@@ -17,7 +17,7 @@
 
 - (IBAction)buttonAction:(id)sender {
     if ([self.rowDescriptor canTriggerAction]) {
-        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender type:MyWideButtonCellActionTypeTriggerButton]];
+        [self.rowDescriptor triggerAction:[TFAction actionWithSender:sender type:MyWideButtonCellActionTypeTriggerButton]];
     }
 }
 

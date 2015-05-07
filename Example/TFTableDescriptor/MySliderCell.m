@@ -22,7 +22,7 @@
 - (IBAction)sliderValueChanged:(id)sender {
     [self updateValue];
     if ([self.rowDescriptor canTriggerAction]) {
-        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender type:0]];
+        [self.rowDescriptor triggerAction:[TFAction actionWithSender:sender type:0]];
     }
 }
 

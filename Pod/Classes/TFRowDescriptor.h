@@ -10,7 +10,7 @@
 
 @class TFSectionDescriptor;
 
-@interface TFRowAction : NSObject
+@interface TFAction : NSObject
 
 @property (nonatomic, strong) id sender;
 @property NSInteger type;
@@ -26,7 +26,7 @@
 @property (nonatomic) id data;
 @property (nonatomic) NSString *tag;
 @property (nonatomic, weak) TFSectionDescriptor *section;
-@property (nonatomic, copy) void (^actionBlock)(TFRowAction *action);
+@property (nonatomic, copy) void (^actionBlock)(TFAction *action);
 
 @property (nonatomic,getter=isHidden) BOOL hidden;
 
@@ -34,11 +34,11 @@
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data tag:(NSString *)tag;
 
 - (void)setTarget:(id)target withSelector:(SEL)selector;
-- (void)setActionBlock:(void(^)(TFRowAction *action))actionBlock;
+- (void)setActionBlock:(void(^)(TFAction *action))actionBlock;
 
 /// Determine if action can be triggered
 - (BOOL)canTriggerAction;
-- (void)triggerAction:(TFRowAction *)action;
+- (void)triggerAction:(TFAction *)action;
 
 #pragma mark - Visibility
 
