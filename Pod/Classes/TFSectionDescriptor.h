@@ -39,6 +39,7 @@
 #pragma mark - Actions
 
 - (void)setTarget:(id)target withSelector:(SEL)selector;
+- (void)triggerAction:(TFAction *)action;
 
 #pragma mark - Visibility
 
