@@ -592,4 +592,12 @@
     return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
 }
 
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableViewDidScroll:)]) {
+        [self.delegate tableViewDidScroll:self.tableView];
+    }
+}
+
 @end

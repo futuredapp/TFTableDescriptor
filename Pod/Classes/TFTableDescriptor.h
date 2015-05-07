@@ -26,6 +26,8 @@
 - (void)tableDescriptor:(TFTableDescriptor *)descriptor didSelectRow:(TFRowDescriptor *)rowDescriptor;
 - (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForRow:(TFRowDescriptor *)rowDescriptor;
 
+- (void)tableViewDidScroll:(UITableView *)tableView;
+
 @end
 
 @interface TFTableDescriptor : NSObject<UITableViewDataSource, UITableViewDelegate, TFTableDescriptorDelegate>
