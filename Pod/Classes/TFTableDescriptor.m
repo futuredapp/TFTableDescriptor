@@ -247,6 +247,8 @@
         assert(true);
     }
     
+    cell.rowDescriptor = row;
+    
     if ([cell conformsToProtocol:@protocol(TFTableDescriptorConfigurableCellProtocol)]) {
         [cell configureWithData:row.data];
     }
@@ -254,8 +256,6 @@
 //    if ([cell respondsToSelector:@selector(delegate)]) {
 //        [cell setValue:self forKey:@"delegate"];
 //    }
-    
-    cell.rowDescriptor = row;
     
     return cell;
 }
