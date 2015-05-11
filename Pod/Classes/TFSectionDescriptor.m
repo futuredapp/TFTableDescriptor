@@ -13,6 +13,8 @@
 @interface TFSectionDescriptor()
 
 @property (nonatomic, strong) NSMutableArray *rows;
+@property (weak) id target;
+@property (nonatomic) SEL selector;
 
 @end
 
@@ -88,6 +90,33 @@
     if ([self.rows containsObject:rowDescriptor]) {
         [self.rows removeObject:rowDescriptor];
     }
+}
+
+#pragma mark - Actions 
+
+- (void)setTarget:(id)target withSelector:(SEL)selector {
+    self.selector = selector;
+    self.target = target;
+}
+
+- (void)triggerAction:(TFAction *)action {
+    
+    if (self.target && self.selector) {
+        if ([self.target respondsToSelector:self.selector]) {
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [self.target performSelector:self.selector withObject:action];
+#pragma clang diagnostic pop
+            
+        }
+        
+    }
+    
+    if (self.actionBlock) {
+        self.actionBlock(action);
+    }
+    
 }
 
 #pragma mark - Data source

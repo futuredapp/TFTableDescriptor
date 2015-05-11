@@ -42,7 +42,7 @@
     int l = arc4random()%3+2;
     for (int x = 0; x < l; x++) {
         TFRowDescriptor *row = [TFRowDescriptor descriptorWithRowClass:[MyVisibilityCell class] data:nil];
-        [row setActionBlock:^(TFRowAction *action) {
+        [row setActionBlock:^(TFAction *action) {
             TFRowDescriptor *rowDescriptor = (TFRowDescriptor *)action.sender;
             rowDescriptor.hidden = YES;
         }];

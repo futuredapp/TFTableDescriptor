@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class TFRowDescriptor, TFTableDescriptor;
+@class TFRowDescriptor, TFTableDescriptor, TFAction;
 
 @interface TFSectionDescriptor : NSObject
 
@@ -17,6 +17,7 @@
 @property (nonatomic) Class sectionFooterClass;
 @property (nonatomic) id data;
 @property (weak, nonatomic) TFTableDescriptor *tableDescriptor;
+@property (nonatomic, copy) void (^actionBlock)(TFAction *action);
 
 @property (nonatomic,getter=isHidden) BOOL hidden;
 
@@ -35,6 +36,10 @@
 - (NSInteger)numberOfRows;
 - (TFRowDescriptor *)rowAtRowIndex:(NSInteger)rowIndex;
 
+#pragma mark - Actions
+
+- (void)setTarget:(id)target withSelector:(SEL)selector;
+- (void)triggerAction:(TFAction *)action;
 
 #pragma mark - Visibility
 

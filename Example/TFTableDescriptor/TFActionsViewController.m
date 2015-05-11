@@ -44,7 +44,7 @@
     // wide button
     
     row = [TFRowDescriptor descriptorWithRowClass:[MyWideButtonCell class] data:nil tag:nil];
-    [row setActionBlock:^(TFRowAction *action) {
+    [row setActionBlock:^(TFAction *action) {
         [self showAlert:@"Button action triggered" withAction:action];
     }];
     
@@ -54,7 +54,7 @@
     // buttons
     
     row = [TFRowDescriptor descriptorWithRowClass:[MyButtonCell class] data:nil tag:nil];
-    [row setActionBlock:^(TFRowAction *action) {
+    [row setActionBlock:^(TFAction *action) {
         
         if (action.type != MyButtonCellActionTypeTriggerButton2) {
             [self showAlert:@"This message was triggered by block" withAction:action];
@@ -69,7 +69,7 @@
     
     // controls
     row = [TFRowDescriptor descriptorWithRowClass:[MyControlsCell class] data:nil];
-    [row setActionBlock:^(TFRowAction *action) {
+    [row setActionBlock:^(TFAction *action) {
         if (action.type == MyControlsCellActionTypeSwitch) {
             [self showAlert:@"Switch action triggered" withAction:action];
         }else if (action.type == MyControlsCellActionTypeSegment){
@@ -82,7 +82,7 @@
     
     // slider
     row = [TFRowDescriptor descriptorWithRowClass:[MySliderCell class] data:nil];
-    [row setActionBlock:^(TFRowAction *action) {
+    [row setActionBlock:^(TFAction *action) {
         if ([action.sender isKindOfClass:[UISlider class]]) {
             UISlider *slider = (UISlider *)action.sender;
             self.tableView.alpha = slider.value;
@@ -97,13 +97,13 @@
     self.tableDescriptor = table;
 }
 
-- (void)cellActionTrigger:(TFRowAction *)action {
+- (void)cellActionTrigger:(TFAction *)action {
     if (action.type == MyButtonCellActionTypeTriggerButton2) {
         [self showAlert:@"This message was triggered by selector on button" withAction:action];
     }
 }
 
--(void)showAlert:(NSString *)alert withAction:(TFRowAction *)action{
+-(void)showAlert:(NSString *)alert withAction:(TFAction *)action{
     NSString *suffix;
     if([action.sender isKindOfClass:[UIButton class]]){
         suffix = [NSString stringWithFormat:@"button: %@",[(UIButton *)action.sender titleForState:UIControlStateNormal]];

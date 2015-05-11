@@ -12,7 +12,7 @@
 
 - (IBAction)hideMeTapped:(id)sender {
     if ([self.rowDescriptor canTriggerAction]) {
-        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:self.rowDescriptor type:0]];
+        [self.rowDescriptor triggerAction:[TFAction actionWithSender:self.rowDescriptor type:0]];
     }
 }
 

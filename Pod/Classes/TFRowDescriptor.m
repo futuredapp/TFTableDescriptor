@@ -11,17 +11,6 @@
 #import "TFSectionDescriptor.h"
 #import "TFTableDescriptor.h"
 
-@implementation TFRowAction
-
-+ (instancetype)actionWithSender:(id)sender type:(NSInteger)type {
-    TFRowAction *action = [[TFRowAction alloc] init];
-    action.sender = sender;
-    action.type = type;
-    return action;
-}
-
-@end
-
 @interface TFRowDescriptor ()
 
 @property (weak) id target;
@@ -58,7 +47,7 @@
     return (self.selector != nil && self.target != nil) || self.actionBlock;
 }
 
-- (void)triggerAction:(TFRowAction *)action {
+- (void)triggerAction:(TFAction *)action {
     
     if (self.target && self.selector) {
         if ([self.target respondsToSelector:self.selector]) {
@@ -80,11 +69,15 @@
 
 #pragma mark - Visibility
 
--(void)setHidden:(BOOL)hidden{
+- (void)setHidden:(BOOL)hidden {
     [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
 }
--(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
-    if(_hidden == hidden)return;
+
+- (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
+    if (_hidden == hidden) {
+        return;
+    }
     
     NSIndexPath *indexPathToDelete = nil;
     NSIndexPath *indexPathToInsert = nil;

@@ -18,13 +18,13 @@
 
 - (IBAction)switchChangedValue:(id)sender {
     if ([self.rowDescriptor canTriggerAction]) {
-        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender type:MyControlsCellActionTypeSwitch]];
+        [self.rowDescriptor triggerAction:[TFAction actionWithSender:sender type:MyControlsCellActionTypeSwitch]];
     }
 }
 
 - (IBAction)segmendSelected:(id)sender {
     if ([self.rowDescriptor canTriggerAction]) {
-        [self.rowDescriptor triggerAction:[TFRowAction actionWithSender:sender type:MyControlsCellActionTypeSegment]];
+        [self.rowDescriptor triggerAction:[TFAction actionWithSender:sender type:MyControlsCellActionTypeSegment]];
     }
 }
 
