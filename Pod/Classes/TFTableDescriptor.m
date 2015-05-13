@@ -205,7 +205,9 @@
     
     TFRowDescriptor *row = [self rowAtIndexPath:indexPath];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForRow:)]) {
+    if (row.cellHeight.floatValue >= 0.0) {
+        return row.cellHeight.floatValue;
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForRow:)]) {
         cellHeight = @([self.delegate tableDescriptor:self heightForRow:row]);
     } else if ([row.rowClass respondsToSelector:@selector(height)]) {
         
