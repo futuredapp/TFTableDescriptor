@@ -8,10 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   TFTableDescriptor:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
   TFTableDescriptor: b914387ac9f46cad20c74c3e8efe4c70b5325b98
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.37.1

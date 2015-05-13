@@ -288,6 +288,14 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:didDeselectRow:)]) {
+        [self.delegate tableDescriptor:self didDeselectRow:[self rowAtIndexPath:indexPath]];
+    }
+    
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
