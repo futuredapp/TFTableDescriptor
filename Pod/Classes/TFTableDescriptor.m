@@ -254,6 +254,8 @@
         assert(true);
     }
     
+    cell.rowDescriptor = row;
+    
     if ([cell conformsToProtocol:@protocol(TFTableDescriptorConfigurableCellProtocol)]) {
         [cell configureWithData:row.data];
     }
@@ -261,8 +263,6 @@
 //    if ([cell respondsToSelector:@selector(delegate)]) {
 //        [cell setValue:self forKey:@"delegate"];
 //    }
-    
-    cell.rowDescriptor = row;
     
     return cell;
 }
@@ -285,6 +285,14 @@
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:didSelectRow:)]) {
         [self.delegate tableDescriptor:self didSelectRow:[self rowAtIndexPath:indexPath]];
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:didDeselectRow:)]) {
+        [self.delegate tableDescriptor:self didDeselectRow:[self rowAtIndexPath:indexPath]];
     }
     
 }
