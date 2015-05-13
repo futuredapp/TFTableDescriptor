@@ -16,8 +16,6 @@
 @property (weak) id target;
 @property (nonatomic) SEL selector;
 
-
-
 @end
 
 @implementation TFRowDescriptor
@@ -37,6 +35,16 @@
     
     return row;
 }
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _cellHeight = @(-1);
+    }
+    return self;
+}
+
 
 - (void)setTarget:(id)target withSelector:(SEL)selector {
     self.selector = selector;
@@ -97,6 +105,16 @@
     }
     if (indexPathToDelete) {
         [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
+    }
+}
+
+#pragma mark - Custom setters
+
+- (void)setCellHeight:(NSNumber *)cellHeight {
+    _cellHeight = cellHeight;
+    
+    if (self.section && self.section.tableDescriptor) {
+        [self.section.tableDescriptor updateCellWithRowDescriptor:self];
     }
 }
 

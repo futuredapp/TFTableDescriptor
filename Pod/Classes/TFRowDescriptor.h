@@ -18,6 +18,7 @@
 @property (nonatomic) NSString *tag;
 @property (nonatomic, weak) TFSectionDescriptor *section;
 @property (nonatomic, copy) void (^actionBlock)(TFAction *action);
+@property (nonatomic, strong) NSNumber *cellHeight;
 
 @property (nonatomic,getter=isHidden) BOOL hidden;
 

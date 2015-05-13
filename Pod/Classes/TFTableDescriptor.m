@@ -268,8 +268,9 @@
 }
 
 - (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForRow:(TFRowDescriptor *)rowDescriptor {
-    
-    if ([rowDescriptor.rowClass respondsToSelector:@selector(height)]) {
+    if (rowDescriptor.cellHeight.floatValue >= 0.0) {
+        return rowDescriptor.cellHeight.floatValue;
+    } else if ([rowDescriptor.rowClass respondsToSelector:@selector(height)]) {
         return [[rowDescriptor.rowClass performSelector:@selector(height)] floatValue];
     } else if ([rowDescriptor.rowClass respondsToSelector:@selector(identifier)]) {
         return [self calculateDynamicHeightForRow:rowDescriptor];
