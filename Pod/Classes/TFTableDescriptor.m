@@ -584,7 +584,7 @@
     
 }
 
-- (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row animation:(TFCellHeightUpdateAnimation)animation {
+- (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row {
     NSIndexPath *indexPath = [self indexPathForRow:row];
     
     if (indexPath) {

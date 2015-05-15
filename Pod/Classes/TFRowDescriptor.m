@@ -133,7 +133,7 @@
     _cellHeight = cellHeight;
     
     if (self.section && self.section.tableDescriptor) {
-        [self.section.tableDescriptor updateCellWithRowDescriptor:self];
+        [self.section.tableDescriptor updateCellHeightWithRowDescriptor:self];
     }
 }
 
