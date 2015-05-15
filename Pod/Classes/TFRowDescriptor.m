@@ -109,12 +109,12 @@
         
         [self.section.tableDescriptor.tableView insertRowsAtIndexPaths:@[indexPathToInsert] withRowAnimation:rowAnimation];
         UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
-        if (cell) {
+        if (cell && updateBlock) {
             updateBlock(cell);
         }
     } else if (indexPathToDelete) {
         UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
-        if (cell) {
+        if (cell && updateBlock) {
             updateBlock(cell);
         }
         [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
