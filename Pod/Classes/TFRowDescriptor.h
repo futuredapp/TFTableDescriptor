@@ -11,6 +11,9 @@
 
 @class TFSectionDescriptor;
 
+typedef void (^TFCellConfigureBlock)(UITableViewCell *cell);
+typedef TFCellConfigureBlock TFCustomRowAnimation;
+
 @interface TFRowDescriptor : NSObject
 
 @property (nonatomic) Class rowClass;

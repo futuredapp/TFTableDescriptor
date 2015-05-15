@@ -584,6 +584,19 @@
     
 }
 
+- (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row animation:(TFCellHeightUpdateAnimation)animation {
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+    
+    if (indexPath) {
+        [self invalidCellSizeAtIndexPath:indexPath];
+    }
+    
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    
+}
+
+
 #pragma mark - Visibility
 
 - (NSInteger)numberOfVisibleSections{

@@ -19,6 +19,12 @@
 
 @class TFTableDescriptor;
 
+typedef NS_ENUM(NSInteger, TFCellHeightUpdateAnimation) {
+    TFCellHeightUpdateAnimationNone = 0,
+    TFCellHeightUpdateAnimationFoldOpen,
+    TFCellHeightUpdateAnimationFoldClose
+};
+
 @protocol TFTableDescriptorDelegate <NSObject>
 
 @optional
@@ -109,6 +115,8 @@
 - (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
+/// It will only invalidate size cache and ask for new
+- (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row animation:(TFCellHeightUpdateAnimation)animation;
 
 @end
 
