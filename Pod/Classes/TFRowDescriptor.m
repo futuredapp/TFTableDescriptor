@@ -110,13 +110,16 @@
         [self.section.tableDescriptor.tableView insertRowsAtIndexPaths:@[indexPathToInsert] withRowAnimation:rowAnimation];
         UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
         if (cell && updateBlock) {
-            updateBlock(cell);
+            updateBlock(cell, nil);
         }
     } else if (indexPathToDelete) {
         UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
         if (cell && updateBlock) {
-            updateBlock(cell);
-            [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
+            
+            updateBlock(cell, ^{
+                [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
+            });
+            
         } else {
             [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
         }

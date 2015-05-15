@@ -11,7 +11,8 @@
 
 @class TFSectionDescriptor;
 
-typedef void (^TFCellConfigureBlock)(UITableViewCell *cell);
+typedef void (^TFCellConfigureCompletionBlock)(void);
+typedef void (^TFCellConfigureBlock)(UITableViewCell *cell, TFCellConfigureCompletionBlock completion);
 typedef TFCellConfigureBlock TFCustomRowAnimation;
 
 @interface TFRowDescriptor : NSObject
