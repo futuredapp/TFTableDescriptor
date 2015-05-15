@@ -116,8 +116,10 @@
         UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
         if (cell && updateBlock) {
             updateBlock(cell);
+            [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
+        } else {
+            [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
         }
-        [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
     }
 }
 
