@@ -37,6 +37,7 @@ typedef TFCellConfigureBlock TFCustomRowAnimation;
 
 #pragma mark - Visibility
 
--(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)setHidden:(BOOL)hidden withCustomAnimation:(TFCustomRowAnimation)rowAnimation;
 
 @end
