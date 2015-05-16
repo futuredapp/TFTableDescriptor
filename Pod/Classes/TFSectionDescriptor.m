@@ -156,17 +156,21 @@
 -(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
     if(hidden == _hidden)return;
     
+    NSInteger deleteSectionIndex = NSNotFound;
+    NSInteger insertSectionIndex = NSNotFound;
+    
     if (hidden) {
-        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
-        [self.tableDescriptor.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+        deleteSectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
     }
     
     _hidden = hidden;
     
     if (!hidden) {
-        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
-        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+        insertSectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
     }
+
+    if(deleteSectionIndex != NSNotFound)[self.tableDescriptor.tableView deleteSections:[NSIndexSet indexSetWithIndex:deleteSectionIndex] withRowAnimation:rowAnimation];
+    if(insertSectionIndex != NSNotFound)[self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:insertSectionIndex] withRowAnimation:rowAnimation];
 }
 
 

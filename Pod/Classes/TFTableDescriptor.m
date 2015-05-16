@@ -70,10 +70,10 @@
 }
 
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section {
-    if (section >= self.sections.count) {
-        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"sectionIndex": @(section), @"sections": self.sections}] raise];
+    if (section >= [self allVisibleSections].count) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting visible section" userInfo:@{@"sectionIndex": @(section), @"sections": self.sections}] raise];
     }
-    return self.sections[section];
+    return [self allVisibleSections][section];
 }
 
 - (TFSectionDescriptor *)sectionForTag:(NSInteger)tag {
@@ -107,15 +107,17 @@
     
     NSAssert(indexPath != nil, @"IndexPath cannot be nil!");
     
-    if (indexPath.section >= self.sections.count) {
+    NSArray *sections = [self allVisibleSections];
+    
+    if (indexPath.section >= sections.count) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"indexPath": indexPath, @"sections": self.sections}] raise];
     }
     
-    if (indexPath.row >= [self.sections[indexPath.section] numberOfRows]) {
+    if (indexPath.row >= [sections[indexPath.section] numberOfRows]) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting row" userInfo:@{@"indexPath": indexPath, @"rows": self.sections[indexPath.section]}] raise];
     }
     
-    return [self.sections[indexPath.section] rowAtRowIndex:indexPath.row];
+    return [sections[indexPath.section] rowAtRowIndex:indexPath.row];
 }
 
 - (TFRowDescriptor *)rowForTag:(NSString *)tag {
@@ -186,7 +188,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+
     // Return the number of rows in the section.
     
     return [[self sectionAtSectionIndex:section] numberOfVisibleRows];

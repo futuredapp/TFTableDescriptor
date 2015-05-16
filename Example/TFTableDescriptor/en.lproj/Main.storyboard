@@ -191,7 +191,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="6tX-jk-58M">
-                        <barButtonItem key="rightBarButtonItem" title="Show all rows" id="WS2-Tu-YuT">
+                        <barButtonItem key="rightBarButtonItem" title="Toggle first section" id="WS2-Tu-YuT">
                             <connections>
                                 <action selector="showAllRows:" destination="qF2-Hs-BTk" id="pKa-KU-g9Y"/>
                             </connections>

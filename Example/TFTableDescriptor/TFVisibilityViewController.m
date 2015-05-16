@@ -37,9 +37,12 @@
 }
 
 - (void)addSectionWithSomeRows{
+    [self addSectionWithRows:arc4random()%3+2];
+}
+- (void)addSectionWithRows:(int)count{
     TFSectionDescriptor *section = [TFSectionDescriptor descriptorWithTag:0 data:@"Section with buttons"];
     
-    int l = arc4random()%3+2;
+    int l = count;
     for (int x = 0; x < l; x++) {
         TFRowDescriptor *row = [TFRowDescriptor descriptorWithRowClass:[MyVisibilityCell class] data:nil];
         [row setActionBlock:^(TFAction *action) {
@@ -52,9 +55,13 @@
     [self.tableDescriptor addSection:section];
 }
 - (IBAction)showAllRows:(id)sender {
-    for (TFRowDescriptor *row in [self.tableDescriptor allRows]) {
-        row.hidden = NO;
-    }
+    [self.tableView beginUpdates];
+    TFSectionDescriptor *section = [[self.tableDescriptor allSections] firstObject];
+    section.hidden = !section.hidden;
+    [self.tableView endUpdates];
+//    for (TFRowDescriptor *row in [self.tableDescriptor allRows]) {
+//        row.hidden = NO;
+//    }
 }
 
 @end
