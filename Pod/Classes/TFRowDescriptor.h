@@ -11,6 +11,9 @@
 
 @class TFSectionDescriptor;
 
+typedef void (^TFCellConfigureBlock)(UITableViewCell *cell);
+typedef TFCellConfigureBlock TFCustomRowAnimation;
+
 @interface TFRowDescriptor : NSObject
 
 @property (nonatomic) Class rowClass;
@@ -18,6 +21,7 @@
 @property (nonatomic) NSString *tag;
 @property (nonatomic, weak) TFSectionDescriptor *section;
 @property (nonatomic, copy) void (^actionBlock)(TFAction *action);
+@property (nonatomic, strong) NSNumber *cellHeight;
 
 @property (nonatomic,getter=isHidden) BOOL hidden;
 
@@ -33,6 +37,7 @@
 
 #pragma mark - Visibility
 
--(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)setHidden:(BOOL)hidden withCustomAnimation:(TFCustomRowAnimation)rowAnimation;
 
 @end

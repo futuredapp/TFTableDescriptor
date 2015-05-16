@@ -16,8 +16,6 @@
 @property (weak) id target;
 @property (nonatomic) SEL selector;
 
-
-
 @end
 
 @implementation TFRowDescriptor
@@ -37,6 +35,16 @@
     
     return row;
 }
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _cellHeight = @(-1);
+    }
+    return self;
+}
+
 
 - (void)setTarget:(id)target withSelector:(SEL)selector {
     self.selector = selector;
@@ -73,7 +81,12 @@
     [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+
 - (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
+    [self setHidden:hidden withRowAnimation:rowAnimation updateBlock:nil];
+}
+
+- (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation updateBlock:(TFCellConfigureBlock)updateBlock {
     
     if (_hidden == hidden) {
         return;
@@ -87,16 +100,42 @@
     }
     
     _hidden = hidden;
-
+    
     if (!hidden) {
         indexPathToInsert = [self.section.tableDescriptor indexPathForVisibleRow:self];
     }
-
+    
     if (indexPathToInsert) {
+        
         [self.section.tableDescriptor.tableView insertRowsAtIndexPaths:@[indexPathToInsert] withRowAnimation:rowAnimation];
-    }
-    if (indexPathToDelete) {
+        UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
+        if (cell && updateBlock) {
+            updateBlock(cell);
+        }
+    } else if (indexPathToDelete) {
+        UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
+        if (cell && updateBlock) {
+            
+            updateBlock(cell);
+            
+        }
+        
         [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
+        
+    }
+}
+
+- (void)setHidden:(BOOL)hidden withCustomAnimation:(TFCustomRowAnimation)rowAnimation {
+    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationNone updateBlock:rowAnimation];
+}
+
+#pragma mark - Custom setters
+
+- (void)setCellHeight:(NSNumber *)cellHeight {
+    _cellHeight = cellHeight;
+    
+    if (self.section && self.section.tableDescriptor) {
+        [self.section.tableDescriptor updateCellHeightWithRowDescriptor:self];
     }
 }
 

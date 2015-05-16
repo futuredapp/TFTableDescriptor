@@ -109,6 +109,8 @@
 - (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
+/// It will only invalidate size cache and ask for new
+- (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row;
 
 @end
 

@@ -205,7 +205,9 @@
     
     TFRowDescriptor *row = [self rowAtIndexPath:indexPath];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForRow:)]) {
+    if (row.cellHeight.floatValue >= 0.0) {
+        return row.cellHeight.floatValue;
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:heightForRow:)]) {
         cellHeight = @([self.delegate tableDescriptor:self heightForRow:row]);
     } else if ([row.rowClass respondsToSelector:@selector(height)]) {
         
@@ -268,8 +270,9 @@
 }
 
 - (CGFloat)tableDescriptor:(TFTableDescriptor *)descriptor heightForRow:(TFRowDescriptor *)rowDescriptor {
-    
-    if ([rowDescriptor.rowClass respondsToSelector:@selector(height)]) {
+    if (rowDescriptor.cellHeight.floatValue >= 0.0) {
+        return rowDescriptor.cellHeight.floatValue;
+    } else if ([rowDescriptor.rowClass respondsToSelector:@selector(height)]) {
         return [[rowDescriptor.rowClass performSelector:@selector(height)] floatValue];
     } else if ([rowDescriptor.rowClass respondsToSelector:@selector(identifier)]) {
         return [self calculateDynamicHeightForRow:rowDescriptor];
@@ -580,6 +583,19 @@
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
+
+- (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row {
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+    
+    if (indexPath) {
+        [self invalidCellSizeAtIndexPath:indexPath];
+    }
+    
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    
+}
+
 
 #pragma mark - Visibility
 
