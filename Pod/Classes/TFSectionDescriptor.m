@@ -163,10 +163,10 @@
     
     _hidden = YES;
     
-    if (!hidden) {
-        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
-        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
-    }
+//    if (!hidden) {
+//        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
+//        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+//    }
 }
 
 
