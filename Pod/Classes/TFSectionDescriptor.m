@@ -161,12 +161,12 @@
         [self.tableDescriptor.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
     }
     
-    _hidden = YES;
+    _hidden = hidden;
     
-//    if (!hidden) {
-//        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
-//        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
-//    }
+    if (!hidden) {
+        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
+        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+    }
 }
 
 
