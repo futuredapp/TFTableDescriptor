@@ -679,7 +679,7 @@
     for (NSDictionary *_dictionary in self.indexPathsToInsert) {
         TFRowDescriptor *row = _dictionary[@"row"];
         row.hidden = NO;
-        [self updateTableForDeleteAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
+        [self updateTableForInsertionAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
     }
     
     for (NSDictionary *_dictionary in self.sectionsToDelete) {
