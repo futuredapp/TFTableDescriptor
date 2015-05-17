@@ -45,9 +45,13 @@
     int l = count;
     for (int x = 0; x < l; x++) {
         TFRowDescriptor *row = [TFRowDescriptor descriptorWithRowClass:[MyVisibilityCell class] data:nil];
+        __weak TFRowDescriptor *weakrow = row;
         [row setActionBlock:^(TFAction *action) {
-            TFRowDescriptor *rowDescriptor = (TFRowDescriptor *)action.sender;
-            rowDescriptor.hidden = YES;
+            [self.tableDescriptor beginUpdates];
+//            TFRowDescriptor *rowDescriptor = [self.tableDescriptor rowAtIndexPath:[self.tableView indexpath]];
+//            NSLog(@"%@",[self.tableDescriptor indexPathForRow:row]);
+            [weakrow setHidden:YES withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableDescriptor endUpdates];
         }];
         [section addRow:row];
     }
@@ -55,13 +59,14 @@
     [self.tableDescriptor addSection:section];
 }
 - (IBAction)showAllRows:(id)sender {
-    [self.tableView beginUpdates];
+    [self.tableDescriptor beginUpdates];
     TFSectionDescriptor *section = [[self.tableDescriptor allSections] firstObject];
-    section.hidden = !section.hidden;
-    [self.tableView endUpdates];
+    [section setHidden:!section.hidden withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableDescriptor endUpdates];
 //    for (TFRowDescriptor *row in [self.tableDescriptor allRows]) {
 //        row.hidden = NO;
 //    }
+//    [self.tableView reloadData];
 }
 
 @end

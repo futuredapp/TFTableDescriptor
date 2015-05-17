@@ -8,6 +8,7 @@
 
 #import "MyVisibilityCell.h"
 
+
 @implementation MyVisibilityCell
 
 - (IBAction)hideMeTapped:(id)sender {

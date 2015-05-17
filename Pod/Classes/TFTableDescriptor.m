@@ -15,6 +15,12 @@
 @property (nonatomic, strong) NSCache *cellSizeCache;
 @property (nonatomic, strong) NSMutableArray *array;
 
+@property (strong, nonatomic) NSMutableArray *indexPathsToDelete;
+@property (strong, nonatomic) NSMutableArray *indexPathsToInsert;
+
+@property (strong, nonatomic) NSMutableArray *sectionsToDelete;
+@property (strong, nonatomic) NSMutableArray *sectionsToInsert;
+
 @end
 
 @implementation TFTableDescriptor
@@ -630,16 +636,93 @@
 - (void)beginUpdates {
     
     [self.tableView beginUpdates];
-    _isBeingUpdated = true;
+    _isBeingUpdated = YES;
 
+}
+
+- (NSMutableArray *)indexPathsToDelete{
+    if (!_indexPathsToDelete) {
+        _indexPathsToDelete = [NSMutableArray array];
+    }
+    return _indexPathsToDelete;
+}
+- (NSMutableArray *)indexPathsToInsert{
+    if (!_indexPathsToInsert) {
+        _indexPathsToInsert = [NSMutableArray array];
+    }
+    return _indexPathsToInsert;
+}
+- (NSMutableArray *)sectionsToDelete{
+    if (!_sectionsToDelete) {
+        _sectionsToDelete = [NSMutableArray array];
+    }
+    return _sectionsToDelete;
+}
+- (NSMutableArray *)sectionsToInsert{
+    if (!_sectionsToInsert) {
+        _sectionsToInsert = [NSMutableArray array];
+    }
+    return _sectionsToInsert;
 }
 
 /// Commit changes in table
 - (void)endUpdates {
     
-    [self.tableView endUpdates];
-    _isBeingUpdated = false;
+    for (NSDictionary *_dictionary in self.indexPathsToDelete) {
+        TFRowDescriptor *row = _dictionary[@"row"];
+        [self updateTableForDeleteAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
+    }
+    for (NSDictionary *_dictionary in self.indexPathsToDelete) {
+        TFRowDescriptor *row = _dictionary[@"row"];
+        row.hidden = YES;
+    }
+    for (NSDictionary *_dictionary in self.indexPathsToInsert) {
+        TFRowDescriptor *row = _dictionary[@"row"];
+        row.hidden = NO;
+        [self updateTableForDeleteAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
+    }
     
+    for (NSDictionary *_dictionary in self.sectionsToDelete) {
+        TFSectionDescriptor *section = _dictionary[@"section"];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.allVisibleSections indexOfObject:section]] withRowAnimation:[_dictionary[@"animation"] integerValue]];
+    }
+    for (NSDictionary *_dictionary in self.sectionsToDelete) {
+        TFSectionDescriptor *section = _dictionary[@"section"];
+        section.hidden = YES;
+    }
+    for (NSDictionary *_dictionary in self.sectionsToInsert) {
+        TFSectionDescriptor *section = _dictionary[@"section"];
+        section.hidden = NO;
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.allVisibleSections indexOfObject:section]] withRowAnimation:[_dictionary[@"animation"] integerValue]];
+    }
+
+    
+    self.indexPathsToDelete = nil;
+    self.indexPathsToInsert = nil;
+    self.sectionsToDelete = nil;
+    self.sectionsToInsert = nil;
+
+    [self.tableView endUpdates];
+    _isBeingUpdated = NO;
+    
+}
+
+- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation{
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    [self.indexPathsToDelete addObject:@{@"animation":@(rowAnimation),@"row":row}];
+}
+- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation{
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    [self.indexPathsToInsert addObject:@{@"animation":@(rowAnimation),@"row":row}];
+}
+
+- (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    [self.sectionsToDelete addObject:@{@"animation":@(rowAnimation),@"section":section}];
+}
+- (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    [self.sectionsToInsert addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
 
 #pragma mark - Visibility
