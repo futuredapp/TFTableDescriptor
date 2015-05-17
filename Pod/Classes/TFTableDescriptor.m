@@ -273,7 +273,7 @@
         cellHeight = @0.0;
     }
     
-    TFRowDescriptor *row = [self rowAtIndexPath:indexPath];
+    TFRowDescriptor *row = [self visibleRowAtIndexPath:indexPath];
     
     if (row.cellHeight.floatValue >= 0.0) {
         return row.cellHeight.floatValue;
@@ -314,7 +314,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TFRowDescriptor *row = [self rowAtIndexPath:indexPath];
+    TFRowDescriptor *row = [self visibleRowAtIndexPath:indexPath];
     
     
     TFBasicDescriptedCell<TFTableDescriptorConfigurableCellProtocol> *cell = [self.tableView dequeueReusableCellWithIdentifier:[row.rowClass performSelector:@selector(identifier)]];
@@ -356,7 +356,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:didSelectRow:)]) {
-        [self.delegate tableDescriptor:self didSelectRow:[self rowAtIndexPath:indexPath]];
+        [self.delegate tableDescriptor:self didSelectRow:[self visibleRowAtIndexPath:indexPath]];
     }
     
 }
@@ -364,14 +364,14 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableDescriptor:didDeselectRow:)]) {
-        [self.delegate tableDescriptor:self didDeselectRow:[self rowAtIndexPath:indexPath]];
+        [self.delegate tableDescriptor:self didDeselectRow:[self visibleRowAtIndexPath:indexPath]];
     }
     
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
+    TFSectionDescriptor *sectionDescriptor = [self visibleSectionAtSectionIndex:section];
     
     TFBasicDescriptedHeaderFooterView *view = nil;
     
@@ -396,7 +396,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
-    TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
+    TFSectionDescriptor *sectionDescriptor = [self visibleSectionAtSectionIndex:section];
     
     if ([sectionDescriptor.sectionHeaderClass respondsToSelector:@selector(height)]) {
         return [[sectionDescriptor.sectionHeaderClass performSelector:@selector(height)] floatValue];
@@ -409,7 +409,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
+    TFSectionDescriptor *sectionDescriptor = [self visibleSectionAtSectionIndex:section];
     
     TFBasicDescriptedHeaderFooterView *view = nil;
     
@@ -434,7 +434,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    TFSectionDescriptor *sectionDescriptor = [self sectionAtSectionIndex:section];
+    TFSectionDescriptor *sectionDescriptor = [self visibleSectionAtSectionIndex:section];
     
     if ([sectionDescriptor.sectionFooterClass respondsToSelector:@selector(height)]) {
         return [[sectionDescriptor.sectionFooterClass performSelector:@selector(height)] floatValue];
