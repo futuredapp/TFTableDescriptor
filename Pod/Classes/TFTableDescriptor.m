@@ -126,7 +126,7 @@
     
     NSAssert(indexPath != nil, @"IndexPath cannot be nil!");
     
-    NSArray *sections = [self allVisibleSections];
+    NSArray *sections = [self allSections];
     
     if (indexPath.section >= sections.count) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"indexPath": indexPath, @"sections": self.sections}] raise];
@@ -143,6 +143,30 @@
     NSIndexPath *indexPath = [self indexPathForRowTag:tag];
     if (indexPath) {
         return [self rowAtIndexPath:indexPath];
+    } else {
+        return nil;
+    }
+}
+
+- (TFRowDescriptor *)visibleRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSAssert(indexPath != nil, @"IndexPath cannot be nil!");
+    
+    NSArray *sections = [self allVisibleSections];
+    
+    if (indexPath.section >= sections.count) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"indexPath": indexPath, @"sections": self.sections}] raise];
+    }
+    
+    if (indexPath.row >= [sections[indexPath.section] numberOfRows]) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting row" userInfo:@{@"indexPath": indexPath, @"rows": self.sections[indexPath.section]}] raise];
+    }
+    
+    return [sections[indexPath.section] rowAtRowIndex:indexPath.row];
+}
+- (TFRowDescriptor *)visibleRowForTag:(NSString *)tag{
+    NSIndexPath *indexPath = [self indexPathForRowTag:tag];
+    if (indexPath) {
+        return [self visibleRowAtIndexPath:indexPath];
     } else {
         return nil;
     }

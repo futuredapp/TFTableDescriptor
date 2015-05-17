@@ -79,6 +79,9 @@
 - (TFRowDescriptor *)rowAtIndexPath:(NSIndexPath *)indexPath;
 - (TFRowDescriptor *)rowForTag:(NSString *)tag;
 
+- (TFRowDescriptor *)visibleRowAtIndexPath:(NSIndexPath *)indexPath;
+- (TFRowDescriptor *)visibleRowForTag:(NSString *)tag;
+
 #pragma mark - Inserting rows
 
 - (void)insertRow:(TFRowDescriptor *)row atTopOfSection:(TFSectionDescriptor *)section;
