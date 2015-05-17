@@ -149,6 +149,9 @@
 - (NSInteger)numberOfVisibleRows{
     return [self allVisibleRows].count;
 }
+- (TFRowDescriptor *)visibleRowAtRowIndex:(NSInteger)rowIndex{
+    return self.allVisibleRows[rowIndex];
+}
 
 -(void)setHidden:(BOOL)hidden{
     [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];

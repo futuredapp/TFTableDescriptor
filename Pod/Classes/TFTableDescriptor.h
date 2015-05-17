@@ -45,12 +45,15 @@
 
 /// Returns number of sections
 - (NSInteger)numberOfSections;
+- (NSInteger)numberOfVisibleSections;
 
 /// Returns NSIndexPath for specific row tag
 - (NSIndexPath *)indexPathForRowTag:(NSString *)tag;
+- (NSIndexPath *)indexPathForVisibleRowTag:(NSString *)tag;
 
 /// Returns NSIndexPath for specific row descriptor
 - (NSIndexPath *)indexPathForRow:(TFRowDescriptor *)row;
+- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 /// Returns UITableViewCell for given row descriptor. If row is not visible returns nil.
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
@@ -63,6 +66,9 @@
 /// Returns section at given index
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section;
 - (TFSectionDescriptor *)sectionForTag:(NSInteger)tag;
+
+- (TFSectionDescriptor *)visibleSectionAtSectionIndex:(NSInteger)section;
+- (TFSectionDescriptor *)visibleSectionForTag:(NSInteger)tag;
 
 #pragma mark - Access rows
 
@@ -102,11 +108,6 @@
 
 
 #pragma mark - Visibility
-
-/// Returns number of visible sections
-- (NSInteger)numberOfVisibleSections;
-
-- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
 /// It will only invalidate size cache and ask for new

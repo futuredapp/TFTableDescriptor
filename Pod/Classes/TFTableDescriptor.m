@@ -58,6 +58,9 @@
 - (NSInteger)numberOfSections {
     return self.sections.count;
 }
+- (NSInteger)numberOfVisibleSections{
+    return self.allVisibleSections.count;
+}
 
 
 #pragma mark - Section access
@@ -70,14 +73,30 @@
 }
 
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section {
+    if (section >= [self allSections].count) {
+        [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting visible section" userInfo:@{@"sectionIndex": @(section), @"sections": self.sections}] raise];
+    }
+    return [self allSections][section];
+}
+
+- (TFSectionDescriptor *)sectionForTag:(NSInteger)tag {
+    for (TFSectionDescriptor *section in self.sections) {
+        if (section.tag == tag) {
+            return section;
+        }
+    }
+    
+    return nil;
+}
+
+- (TFSectionDescriptor *)visibleSectionAtSectionIndex:(NSInteger)section{
     if (section >= [self allVisibleSections].count) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting visible section" userInfo:@{@"sectionIndex": @(section), @"sections": self.sections}] raise];
     }
     return [self allVisibleSections][section];
 }
-
-- (TFSectionDescriptor *)sectionForTag:(NSInteger)tag {
-    for (TFSectionDescriptor *section in self.sections) {
+- (TFSectionDescriptor *)visibleSectionForTag:(NSInteger)tag{
+    for (TFSectionDescriptor *section in self.allVisibleSections) {
         if (section.tag == tag) {
             return section;
         }
@@ -144,6 +163,21 @@
     return nil;
 }
 
+- (NSIndexPath *)indexPathForVisibleRowTag:(NSString *)tag{
+    NSUInteger sectionIndex = 0;
+    
+    for (TFSectionDescriptor *section in self.allVisibleSections) {
+        for (int ri = 0; ri < section.numberOfVisibleRows; ri++) {
+            if ([[section visibleRowAtRowIndex:ri].tag isEqualToString:tag]) {
+                return [NSIndexPath indexPathForRow:ri inSection:sectionIndex];
+            }
+        }
+        sectionIndex++;
+    }
+    
+    return nil;
+}
+
 - (NSIndexPath *)indexPathForRow:(TFRowDescriptor *)row {
     NSUInteger sectionIndex = [self.sections indexOfObject:row.section];
     NSUInteger rowIndex = [[row.section allRows] indexOfObject:row];
@@ -154,9 +188,19 @@
     
     return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
 }
+- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row{
+    NSUInteger sectionIndex = [self.allVisibleSections indexOfObject:row.section];
+    NSUInteger rowIndex = [[row.section allVisibleRows] indexOfObject:row];
+    
+    if (sectionIndex == NSNotFound || rowIndex == NSNotFound) {
+        return nil;
+    }
+    
+    return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+}
 
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row {
-    return [self.tableView cellForRowAtIndexPath:[self indexPathForRow:row]];
+    return [self.tableView cellForRowAtIndexPath:[self indexPathForVisibleRow:row]];
 }
 
 #pragma mark - Lazy initializations
@@ -191,7 +235,7 @@
 
     // Return the number of rows in the section.
     
-    return [[self sectionAtSectionIndex:section] numberOfVisibleRows];
+    return [[self visibleSectionAtSectionIndex:section] numberOfVisibleRows];
 }
 
 
@@ -574,6 +618,8 @@
     
 }
 
+#pragma mark - Visibility
+
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row {
     
     NSIndexPath *indexPath = [self indexPathForRow:row];
@@ -598,25 +644,6 @@
     
 }
 
-
-#pragma mark - Visibility
-
-- (NSInteger)numberOfVisibleSections{
-    return [self allVisibleSections].count;
-}
-
-- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row{
-    NSAssert(row != nil, @"row must not be nil");
-    
-    NSInteger sectionIndex = [[self allVisibleSections] indexOfObject:row.section];
-    NSInteger rowIndex = [[row.section allVisibleRows] indexOfObject:row];
-    
-    if (sectionIndex == NSNotFound || rowIndex == NSNotFound) {
-        return nil;
-    }
-    
-    return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
-}
 
 #pragma mark - UIScrollView delegate
 
