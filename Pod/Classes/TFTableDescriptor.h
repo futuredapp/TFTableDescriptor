@@ -109,8 +109,8 @@
 /// Commit changes in table
 - (void)endUpdates;
 
-- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation;
-- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation;
+- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation;
 
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;

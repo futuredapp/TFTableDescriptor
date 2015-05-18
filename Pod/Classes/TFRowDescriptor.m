@@ -88,47 +88,15 @@
     }
     
     if (hidden) {
-        [self.section.tableDescriptor addRowForDeleting:self rowAnimation:rowAnimation];
+        [self.section.tableDescriptor addRowForDeleting:self rowAnimation:rowAnimation customAnimation:updateBlock];
     }else{
-        [self.section.tableDescriptor addRowForInserting:self rowAnimation:rowAnimation];
+        [self.section.tableDescriptor addRowForInserting:self rowAnimation:rowAnimation customAnimation:updateBlock];
     }
     
     UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
     if (cell && updateBlock) {
         updateBlock(cell);
     }
-    
-//    NSIndexPath *indexPathToDelete = nil;
-//    NSIndexPath *indexPathToInsert = nil;
-//    
-//    if (hidden) {
-//        indexPathToDelete = [self.section.tableDescriptor indexPathForVisibleRow:self];
-//    }
-//    
-//    _hidden = hidden;
-//    
-//    if (!hidden) {
-//        indexPathToInsert = [self.section.tableDescriptor indexPathForVisibleRow:self];
-//    }
-//    
-//    if (indexPathToInsert) {
-//        
-//        [self.section.tableDescriptor.tableView insertRowsAtIndexPaths:@[indexPathToInsert] withRowAnimation:rowAnimation];
-//        UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
-//        if (cell && updateBlock) {
-//            updateBlock(cell);
-//        }
-//    } else if (indexPathToDelete) {
-//        UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
-//        if (cell && updateBlock) {
-//            
-//            updateBlock(cell);
-//            
-//        }
-//        
-//        [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
-//        
-//    }
 }
 
 - (void)setHidden:(BOOL)hidden withCustomAnimation:(TFCustomRowAnimation)rowAnimation {

@@ -670,6 +670,10 @@
     
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
         TFRowDescriptor *row = _dictionary[@"row"];
+        TFCustomRowAnimation rowAnimation = _dictionary[@"customAnimation"];
+        if (rowAnimation) {
+            rowAnimation([self cellForRow:row]);
+        }
         [self updateTableForDeleteAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
     }
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
@@ -695,25 +699,34 @@
         section.hidden = NO;
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.allVisibleSections indexOfObject:section]] withRowAnimation:[_dictionary[@"animation"] integerValue]];
     }
-
+    
+    [self.tableView endUpdates];
+    
+    
+    for (NSDictionary *_dictionary in self.indexPathsToInsert) {
+        TFRowDescriptor *row = _dictionary[@"row"];
+        TFCustomRowAnimation rowAnimation = _dictionary[@"customAnimation"];
+        if (rowAnimation) {
+            rowAnimation([self cellForRow:row]);
+        }
+    }
     
     self.indexPathsToDelete = nil;
     self.indexPathsToInsert = nil;
     self.sectionsToDelete = nil;
     self.sectionsToInsert = nil;
-
-    [self.tableView endUpdates];
+    
     _isBeingUpdated = NO;
     
 }
 
-- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation{
+- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
-    [self.indexPathsToDelete addObject:@{@"animation":@(rowAnimation),@"row":row}];
+    [self.indexPathsToDelete addObject:@{@"animation":@(rowAnimation),@"row":row,@"customAnimation":[customAnimation copy]}];
 }
-- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation{
+- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
-    [self.indexPathsToInsert addObject:@{@"animation":@(rowAnimation),@"row":row}];
+    [self.indexPathsToInsert addObject:@{@"animation":@(rowAnimation),@"row":row,@"customAnimation":[customAnimation copy]}];
 }
 
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
