@@ -722,11 +722,19 @@
 
 - (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
-    [self.indexPathsToDelete addObject:@{@"animation":@(rowAnimation),@"row":row,@"customAnimation":[customAnimation copy]}];
+    NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
+    if (customAnimation) {
+        dict[@"customAnimation"] = [customAnimation copy];
+    }
+    [self.indexPathsToDelete addObject:dict];
 }
 - (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
-    [self.indexPathsToInsert addObject:@{@"animation":@(rowAnimation),@"row":row,@"customAnimation":[customAnimation copy]}];
+    NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
+    if (customAnimation) {
+        dict[@"customAnimation"] = [customAnimation copy];
+    }
+    [self.indexPathsToInsert addObject:dict];
 }
 
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
