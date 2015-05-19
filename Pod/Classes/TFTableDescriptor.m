@@ -262,7 +262,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     // Return the number of rows in the section.
     
     return [[self visibleSectionAtSectionIndex:section] numberOfVisibleRows];
@@ -338,9 +338,9 @@
         [cell configureWithData:row.data];
     }
     
-//    if ([cell respondsToSelector:@selector(delegate)]) {
-//        [cell setValue:self forKey:@"delegate"];
-//    }
+    //    if ([cell respondsToSelector:@selector(delegate)]) {
+    //        [cell setValue:self forKey:@"delegate"];
+    //    }
     
     return cell;
 }
@@ -382,7 +382,7 @@
     TFBasicDescriptedHeaderFooterView *view = nil;
     
     if (sectionDescriptor.sectionHeaderClass) {
-    
+        
         view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[sectionDescriptor.sectionHeaderClass performSelector:@selector(identifier)]];
     } else {
         return nil;
@@ -401,7 +401,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
+    
     TFSectionDescriptor *sectionDescriptor = [self visibleSectionAtSectionIndex:section];
     
     if ([sectionDescriptor.sectionHeaderClass respondsToSelector:@selector(height)]) {
@@ -476,9 +476,9 @@
     
     [section addRowToTop:row];
     NSIndexPath *rowIndexPath = [self indexPathForRow:row];
-       
+    
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
-
+    
     
 }
 
@@ -487,13 +487,13 @@
     
     [section addRowToBottom:row];
     NSIndexPath *rowIndexPath = [self indexPathForRow:row];
-        
+    
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
-
+    
 }
 
 - (void)insertRow:(TFRowDescriptor *)row inFrontOfRow:(TFRowDescriptor *)inFrontOfRow rowAnimation:(UITableViewRowAnimation)rowAnimation {
-
+    
     NSAssert(inFrontOfRow != nil, @"inFrontOfRow cannot be nil!");
     NSAssert(inFrontOfRow.section != nil, @"Trying to add cell in front of cell which is not in section!");
     
@@ -509,26 +509,26 @@
     
     NSAssert(afterRow != nil, @"afterRow cannot be nil!");
     NSAssert(afterRow.section != nil, @"Trying to add cell after cell which is not in section!");
-
+    
     [afterRow.section addRow:row afterRow:afterRow];
     NSIndexPath *rowIndexPath = [self indexPathForRow:row];
     
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
-
+    
 }
 
 - (void)updateTableForInsertionAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self insertCellSizeCacheAtIndexPath:indexPath];
     
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
-
+    
 }
 
 - (void)updateTableForDeleteAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self deleteCellSizeCacheAtIndexPath:indexPath];
     
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
-
+    
 }
 
 #pragma mark - Removing rows
@@ -546,11 +546,11 @@
     NSAssert(row != nil, @"Row cannot be nil!");
     
     NSIndexPath *indexPath = [self indexPathForRow:row];
-
+    
     [row.section removeRow:row];
-
+    
     [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:rowAnimation];
-        
+    
 }
 
 - (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation {
@@ -562,7 +562,7 @@
     [self removeRow:row rowAnimation:rowAnimation];
 }
 
-#pragma mark - Helpers 
+#pragma mark - Helpers
 
 - (BOOL)containSection:(TFSectionDescriptor *)section {
     return [self.sections containsObject:section];
@@ -626,7 +626,7 @@
 
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 //    RestaurantFooter *footer = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[RestaurantFooter identifier]];
-//    
+//
 //    return footer;
 //}
 
@@ -637,7 +637,7 @@
     
     [self.tableView beginUpdates];
     _isBeingUpdated = YES;
-
+    
 }
 
 - (NSMutableArray *)indexPathsToDelete{
@@ -674,7 +674,10 @@
         if (rowAnimation) {
             rowAnimation([self cellForRow:row]);
         }
-        [self updateTableForDeleteAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
+        NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
+        if (indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
+            [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
+        }
     }
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
         TFRowDescriptor *row = _dictionary[@"row"];
@@ -683,12 +686,18 @@
     for (NSDictionary *_dictionary in self.indexPathsToInsert) {
         TFRowDescriptor *row = _dictionary[@"row"];
         row.hidden = NO;
-        [self updateTableForInsertionAtIndexPath:[self indexPathForVisibleRow:row] rowAnimation:[_dictionary[@"animation"] integerValue]];
+        NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
+        if (indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
+            [self updateTableForInsertionAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
+        }
     }
     
     for (NSDictionary *_dictionary in self.sectionsToDelete) {
         TFSectionDescriptor *section = _dictionary[@"section"];
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.allVisibleSections indexOfObject:section]] withRowAnimation:[_dictionary[@"animation"] integerValue]];
+        NSInteger index = [self.allVisibleSections indexOfObject:section];
+        if (index != NSNotFound) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];
+        }
     }
     for (NSDictionary *_dictionary in self.sectionsToDelete) {
         TFSectionDescriptor *section = _dictionary[@"section"];
@@ -697,7 +706,10 @@
     for (NSDictionary *_dictionary in self.sectionsToInsert) {
         TFSectionDescriptor *section = _dictionary[@"section"];
         section.hidden = NO;
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.allVisibleSections indexOfObject:section]] withRowAnimation:[_dictionary[@"animation"] integerValue]];
+        NSInteger index = [self.allVisibleSections indexOfObject:section];
+        if (index != NSNotFound) {
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];
+        }
     }
     
     [self.tableView endUpdates];
