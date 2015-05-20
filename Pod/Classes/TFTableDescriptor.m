@@ -624,6 +624,10 @@
     [self.cellSizeCache removeObjectForKey:rowIndexPath];
 }
 
+- (void)invalidateCellSizes{
+    [self.cellSizeCache removeAllObjects];
+}
+
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 //    RestaurantFooter *footer = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[RestaurantFooter identifier]];
 //
@@ -710,6 +714,10 @@
         if (index != NSNotFound) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];
         }
+    }
+    
+    if (self.sectionsToDelete.count + self.sectionsToInsert.count > 0) {
+        [self invalidateCellSizes];
     }
     
     [self.tableView endUpdates];
