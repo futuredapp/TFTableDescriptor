@@ -122,5 +122,10 @@
 /// It will only invalidate size cache and ask for new
 - (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row;
 
+
+#pragma mark - Scroll
+
+- (void)scrollToRow:(TFRowDescriptor *)row position:(UITableViewScrollPosition)position animated:(BOOL)animated;
+
 @end
 
