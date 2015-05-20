@@ -37,14 +37,21 @@
 }
 
 - (void)addSectionWithSomeRows{
+    [self addSectionWithRows:arc4random()%3+2];
+}
+- (void)addSectionWithRows:(int)count{
     TFSectionDescriptor *section = [TFSectionDescriptor descriptorWithTag:0 data:@"Section with buttons"];
     
-    int l = arc4random()%3+2;
+    int l = count;
     for (int x = 0; x < l; x++) {
         TFRowDescriptor *row = [TFRowDescriptor descriptorWithRowClass:[MyVisibilityCell class] data:nil];
+        __weak TFRowDescriptor *weakrow = row;
         [row setActionBlock:^(TFAction *action) {
-            TFRowDescriptor *rowDescriptor = (TFRowDescriptor *)action.sender;
-            rowDescriptor.hidden = YES;
+            [self.tableDescriptor beginUpdates];
+//            TFRowDescriptor *rowDescriptor = [self.tableDescriptor rowAtIndexPath:[self.tableView indexpath]];
+//            NSLog(@"%@",[self.tableDescriptor indexPathForRow:row]);
+            [weakrow setHidden:YES withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableDescriptor endUpdates];
         }];
         [section addRow:row];
     }
@@ -52,9 +59,14 @@
     [self.tableDescriptor addSection:section];
 }
 - (IBAction)showAllRows:(id)sender {
-    for (TFRowDescriptor *row in [self.tableDescriptor allRows]) {
-        row.hidden = NO;
-    }
+    [self.tableDescriptor beginUpdates];
+    TFSectionDescriptor *section = [[self.tableDescriptor allSections] firstObject];
+    [section setHidden:!section.hidden withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableDescriptor endUpdates];
+//    for (TFRowDescriptor *row in [self.tableDescriptor allRows]) {
+//        row.hidden = NO;
+//    }
+//    [self.tableView reloadData];
 }
 
 @end

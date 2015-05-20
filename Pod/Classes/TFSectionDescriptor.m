@@ -149,24 +149,33 @@
 - (NSInteger)numberOfVisibleRows{
     return [self allVisibleRows].count;
 }
-
--(void)setHidden:(BOOL)hidden{
-    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
+- (TFRowDescriptor *)visibleRowAtRowIndex:(NSInteger)rowIndex{
+    return self.allVisibleRows[rowIndex];
 }
+
 -(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
     if(hidden == _hidden)return;
-    
+
     if (hidden) {
-        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
-        [self.tableDescriptor.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
+        [self.tableDescriptor addSectionForDeleting:self rowAnimation:rowAnimation];
+    }else{
+        [self.tableDescriptor addSectionForInserting:self rowAnimation:rowAnimation];
     }
-    
-    _hidden = YES;
-    
-    if (!hidden) {
-        NSInteger sectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
-        [self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:rowAnimation];
-    }
+//    NSInteger deleteSectionIndex = NSNotFound;
+//    NSInteger insertSectionIndex = NSNotFound;
+//    
+//    if (hidden) {
+//        deleteSectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
+//    }
+//    
+//    _hidden = hidden;
+//    
+//    if (!hidden) {
+//        insertSectionIndex = [[self.tableDescriptor allVisibleSections] indexOfObject:self];
+//    }
+//
+//    if(deleteSectionIndex != NSNotFound)[self.tableDescriptor.tableView deleteSections:[NSIndexSet indexSetWithIndex:deleteSectionIndex] withRowAnimation:rowAnimation];
+//    if(insertSectionIndex != NSNotFound)[self.tableDescriptor.tableView insertSections:[NSIndexSet indexSetWithIndex:insertSectionIndex] withRowAnimation:rowAnimation];
 }
 
 

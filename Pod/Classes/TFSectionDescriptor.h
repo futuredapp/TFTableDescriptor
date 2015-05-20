@@ -45,6 +45,7 @@
 
 - (NSArray *)allVisibleRows;
 - (NSInteger)numberOfVisibleRows;
+- (TFRowDescriptor *)visibleRowAtRowIndex:(NSInteger)rowIndex;
 
 -(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
 

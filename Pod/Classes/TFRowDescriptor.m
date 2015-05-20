@@ -77,11 +77,6 @@
 
 #pragma mark - Visibility
 
-- (void)setHidden:(BOOL)hidden {
-    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-
 - (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self setHidden:hidden withRowAnimation:rowAnimation updateBlock:nil];
 }
@@ -92,36 +87,15 @@
         return;
     }
     
-    NSIndexPath *indexPathToDelete = nil;
-    NSIndexPath *indexPathToInsert = nil;
-    
     if (hidden) {
-        indexPathToDelete = [self.section.tableDescriptor indexPathForVisibleRow:self];
+        [self.section.tableDescriptor addRowForDeleting:self rowAnimation:rowAnimation customAnimation:updateBlock];
+    }else{
+        [self.section.tableDescriptor addRowForInserting:self rowAnimation:rowAnimation customAnimation:updateBlock];
     }
     
-    _hidden = hidden;
-    
-    if (!hidden) {
-        indexPathToInsert = [self.section.tableDescriptor indexPathForVisibleRow:self];
-    }
-    
-    if (indexPathToInsert) {
-        
-        [self.section.tableDescriptor.tableView insertRowsAtIndexPaths:@[indexPathToInsert] withRowAnimation:rowAnimation];
-        UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
-        if (cell && updateBlock) {
-            updateBlock(cell);
-        }
-    } else if (indexPathToDelete) {
-        UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
-        if (cell && updateBlock) {
-            
-            updateBlock(cell);
-            
-        }
-        
-        [self.section.tableDescriptor.tableView deleteRowsAtIndexPaths:@[indexPathToDelete] withRowAnimation:rowAnimation];
-        
+    UITableViewCell *cell = [self.section.tableDescriptor cellForRow:self];
+    if (cell && updateBlock) {
+        updateBlock(cell);
     }
 }
 

@@ -45,12 +45,15 @@
 
 /// Returns number of sections
 - (NSInteger)numberOfSections;
+- (NSInteger)numberOfVisibleSections;
 
 /// Returns NSIndexPath for specific row tag
 - (NSIndexPath *)indexPathForRowTag:(NSString *)tag;
+- (NSIndexPath *)indexPathForVisibleRowTag:(NSString *)tag;
 
 /// Returns NSIndexPath for specific row descriptor
 - (NSIndexPath *)indexPathForRow:(TFRowDescriptor *)row;
+- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 /// Returns UITableViewCell for given row descriptor. If row is not visible returns nil.
 - (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
@@ -64,6 +67,9 @@
 - (TFSectionDescriptor *)sectionAtSectionIndex:(NSInteger)section;
 - (TFSectionDescriptor *)sectionForTag:(NSInteger)tag;
 
+- (TFSectionDescriptor *)visibleSectionAtSectionIndex:(NSInteger)section;
+- (TFSectionDescriptor *)visibleSectionForTag:(NSInteger)tag;
+
 #pragma mark - Access rows
 
 - (NSArray *)allRows;
@@ -72,6 +78,9 @@
 /// Returns row at given NSIndexPath
 - (TFRowDescriptor *)rowAtIndexPath:(NSIndexPath *)indexPath;
 - (TFRowDescriptor *)rowForTag:(NSString *)tag;
+
+- (TFRowDescriptor *)visibleRowAtIndexPath:(NSIndexPath *)indexPath;
+- (TFRowDescriptor *)visibleRowForTag:(NSString *)tag;
 
 #pragma mark - Inserting rows
 
@@ -100,13 +109,14 @@
 /// Commit changes in table
 - (void)endUpdates;
 
+- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation;
+- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation;
+
+- (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
+- (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
+
 
 #pragma mark - Visibility
-
-/// Returns number of visible sections
-- (NSInteger)numberOfVisibleSections;
-
-- (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
 /// It will only invalidate size cache and ask for new
