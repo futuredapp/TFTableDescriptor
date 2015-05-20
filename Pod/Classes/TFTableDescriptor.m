@@ -624,4 +624,15 @@
     }
 }
 
+
+#pragma mark - Scroll 
+
+- (void)scrollToRow:(TFRowDescriptor *)row position:(UITableViewScrollPosition)position animated:(BOOL)animated {
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+
+    if (indexPath) {
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:position animated:animated];
+    }
+}
+
 @end
