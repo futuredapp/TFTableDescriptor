@@ -785,10 +785,19 @@
     if (indexPath) {
         [self invalidCellSizeAtIndexPath:indexPath];
      
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
+        [self setNeedsUpdate];
     }
 }
+
+- (void)setNeedsUpdate{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateIfNeeded) object:nil];
+    [self performSelector:@selector(updateIfNeeded) withObject:nil afterDelay:0];
+}
+- (void)updateIfNeeded{
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
 
 
 #pragma mark - UIScrollView delegate

@@ -115,6 +115,8 @@
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 
+// calls tableViews beginUpdates/endUpdates commands in next runloop cycle. Can be called repeatedly, update methods are run only once
+- (void)setNeedsUpdate;
 
 #pragma mark - Visibility
 
