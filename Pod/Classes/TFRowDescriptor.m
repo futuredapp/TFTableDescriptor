@@ -77,6 +77,10 @@
 
 #pragma mark - Visibility
 
+-(BOOL)isHidden{
+    return _hidden || self.section.hidden;
+}
+
 - (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self setHidden:hidden withRowAnimation:rowAnimation updateBlock:nil];
 }
