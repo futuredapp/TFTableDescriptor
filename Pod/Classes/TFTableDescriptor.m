@@ -770,26 +770,24 @@
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row {
     
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
     
     if (indexPath) {
         [self invalidCellSizeAtIndexPath:indexPath];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
 
 - (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row {
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
     
     if (indexPath) {
         [self invalidCellSizeAtIndexPath:indexPath];
+     
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
     }
-    
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-    
 }
 
 
