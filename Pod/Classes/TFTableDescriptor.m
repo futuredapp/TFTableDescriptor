@@ -805,7 +805,7 @@
 #pragma mark - Scroll 
 
 - (void)scrollToRow:(TFRowDescriptor *)row position:(UITableViewScrollPosition)position animated:(BOOL)animated {
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
 
     if (indexPath) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:position animated:animated];
