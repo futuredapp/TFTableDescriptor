@@ -41,3 +41,11 @@ typedef TFCellConfigureBlock TFCustomRowAnimation;
 - (void)setHidden:(BOOL)hidden withCustomAnimation:(TFCustomRowAnimation)rowAnimation;
 
 @end
+
+
+
+@interface TFRowDescriptor (PrivateMethods)
+
+- (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check;
+
+@end

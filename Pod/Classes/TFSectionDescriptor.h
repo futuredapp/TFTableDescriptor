@@ -50,3 +50,11 @@
 -(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation;
 
 @end
+
+
+
+@interface TFSectionDescriptor (PrivateMethods)
+
+- (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check;
+
+@end

@@ -685,11 +685,11 @@
     }
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
         TFRowDescriptor *row = _dictionary[@"row"];
-        row.hidden = YES;
+        [row setHidden:YES checkIfUpdating:YES];
     }
     for (NSDictionary *_dictionary in self.indexPathsToInsert) {
         TFRowDescriptor *row = _dictionary[@"row"];
-        row.hidden = NO;
+        [row setHidden:NO checkIfUpdating:NO];
         NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
         if (indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
             [self updateTableForInsertionAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
@@ -705,11 +705,11 @@
     }
     for (NSDictionary *_dictionary in self.sectionsToDelete) {
         TFSectionDescriptor *section = _dictionary[@"section"];
-        section.hidden = YES;
+        [section setHidden:YES checkIfUpdating:NO];
     }
     for (NSDictionary *_dictionary in self.sectionsToInsert) {
         TFSectionDescriptor *section = _dictionary[@"section"];
-        section.hidden = NO;
+        [section setHidden:NO checkIfUpdating:NO];
         NSInteger index = [self.allVisibleSections indexOfObject:section];
         if (index != NSNotFound) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];

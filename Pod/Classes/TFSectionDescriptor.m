@@ -153,9 +153,12 @@
     return self.allVisibleRows[rowIndex];
 }
 
-
 - (void)setHidden:(BOOL)hidden{
-    if (self.tableDescriptor.isBeingUpdated) {
+    [self setHidden:hidden checkIfUpdating:YES];
+}
+
+- (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check{
+    if (check && self.tableDescriptor.isBeingUpdated) {
         [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
     }else{
         _hidden = hidden;
