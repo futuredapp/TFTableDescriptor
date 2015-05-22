@@ -685,7 +685,7 @@
     }
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
         TFRowDescriptor *row = _dictionary[@"row"];
-        [row setHidden:YES checkIfUpdating:YES];
+        [row setHidden:YES checkIfUpdating:NO];
     }
     for (NSDictionary *_dictionary in self.indexPathsToInsert) {
         TFRowDescriptor *row = _dictionary[@"row"];
