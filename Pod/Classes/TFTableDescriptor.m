@@ -163,11 +163,11 @@
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"indexPath": indexPath, @"sections": self.sections}] raise];
     }
     
-    if (indexPath.row >= [sections[indexPath.section] numberOfRows]) {
+    if (indexPath.row >= [sections[indexPath.section] numberOfVisibleRows]) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting row" userInfo:@{@"indexPath": indexPath, @"rows": self.sections[indexPath.section]}] raise];
     }
     
-    return [sections[indexPath.section] rowAtRowIndex:indexPath.row];
+    return [sections[indexPath.section] visibleRowAtRowIndex:indexPath.row];
 }
 - (TFRowDescriptor *)visibleRowForTag:(NSString *)tag{
     NSIndexPath *indexPath = [self indexPathForRowTag:tag];
