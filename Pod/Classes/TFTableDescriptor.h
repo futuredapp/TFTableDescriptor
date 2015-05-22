@@ -120,6 +120,10 @@
 
 #pragma mark - Visibility
 
+- (void)updateVisibilityWithBlock:(void (^)(void))block;
+
+
+
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
 /// It will only invalidate size cache and ask for new
 - (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row;

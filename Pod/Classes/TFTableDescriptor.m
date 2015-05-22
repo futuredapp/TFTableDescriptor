@@ -741,7 +741,7 @@
 }
 
 - (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
     if (customAnimation) {
         dict[@"customAnimation"] = [customAnimation copy];
@@ -749,7 +749,7 @@
     [self.indexPathsToDelete addObject:dict];
 }
 - (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
     if (customAnimation) {
         dict[@"customAnimation"] = [customAnimation copy];
@@ -758,11 +758,11 @@
 }
 
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToDelete addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToInsert addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
 
@@ -798,6 +798,12 @@
     [self.tableView endUpdates];
 }
 
+             
+- (void)updateVisibilityWithBlock:(void (^)(void))block{
+    [self beginUpdates];
+    block();
+    [self endUpdates];
+}
 
 
 #pragma mark - UIScrollView delegate

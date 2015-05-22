@@ -19,6 +19,7 @@
 @end
 
 @implementation TFRowDescriptor
+@synthesize hidden = _hidden;
 
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data {
     TFRowDescriptor *descriptor = [[TFRowDescriptor alloc] init];
@@ -79,6 +80,10 @@
 
 -(BOOL)isHidden{
     return _hidden || self.section.hidden;
+}
+
+- (void)setHidden:(BOOL)hidden{
+    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
