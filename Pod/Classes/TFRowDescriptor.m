@@ -83,7 +83,11 @@
 }
 
 - (void)setHidden:(BOOL)hidden{
-    [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (self.section.tableDescriptor.isBeingUpdated) {
+        [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
+    }else{
+        _hidden = hidden;
+    }
 }
 
 - (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
