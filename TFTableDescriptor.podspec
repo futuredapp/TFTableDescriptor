@@ -10,7 +10,7 @@
 Pod::Spec.new do |s|
   s.name             = "TFTableDescriptor"
   s.version          = "2.0.0"
-  s.summary          = "Simple table descriptor with dynamic cell height support"
+  s.summary          = "Simple table descriptor with dynamic cell height support and customization"
   s.description      = <<-DESC
                        TFTableDescriptor is simple table descriptor that helps you describe how a table content should looks like (sections, row). It have a dynamic cell height support for iOS 7 and higher.
                        DESC
