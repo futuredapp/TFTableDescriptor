@@ -116,10 +116,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## TODO
 
-- cell appearance customization by Row descriptor
+- ~~cell appearance customization by Row descriptor~~
 - ~~cell blocks and selectors~~
 - ~~tests~~
-- footer support
+- ~~footer support~~
 
 ## Requirements
 iOS 7 and higher
