@@ -163,11 +163,11 @@
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting section" userInfo:@{@"indexPath": indexPath, @"sections": self.sections}] raise];
     }
     
-    if (indexPath.row >= [sections[indexPath.section] numberOfRows]) {
+    if (indexPath.row >= [sections[indexPath.section] numberOfVisibleRows]) {
         [[NSException exceptionWithName:@"Out of bounds" reason:@"Attempt to reach nonexisting row" userInfo:@{@"indexPath": indexPath, @"rows": self.sections[indexPath.section]}] raise];
     }
     
-    return [sections[indexPath.section] rowAtRowIndex:indexPath.row];
+    return [sections[indexPath.section] visibleRowAtRowIndex:indexPath.row];
 }
 - (TFRowDescriptor *)visibleRowForTag:(NSString *)tag{
     NSIndexPath *indexPath = [self indexPathForRowTag:tag];
@@ -624,6 +624,10 @@
     [self.cellSizeCache removeObjectForKey:rowIndexPath];
 }
 
+- (void)invalidateCellSizes{
+    [self.cellSizeCache removeAllObjects];
+}
+
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 //    RestaurantFooter *footer = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:[RestaurantFooter identifier]];
 //
@@ -681,11 +685,11 @@
     }
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
         TFRowDescriptor *row = _dictionary[@"row"];
-        row.hidden = YES;
+        [row setHidden:YES checkIfUpdating:NO];
     }
     for (NSDictionary *_dictionary in self.indexPathsToInsert) {
         TFRowDescriptor *row = _dictionary[@"row"];
-        row.hidden = NO;
+        [row setHidden:NO checkIfUpdating:NO];
         NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
         if (indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
             [self updateTableForInsertionAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
@@ -701,15 +705,19 @@
     }
     for (NSDictionary *_dictionary in self.sectionsToDelete) {
         TFSectionDescriptor *section = _dictionary[@"section"];
-        section.hidden = YES;
+        [section setHidden:YES checkIfUpdating:NO];
     }
     for (NSDictionary *_dictionary in self.sectionsToInsert) {
         TFSectionDescriptor *section = _dictionary[@"section"];
-        section.hidden = NO;
+        [section setHidden:NO checkIfUpdating:NO];
         NSInteger index = [self.allVisibleSections indexOfObject:section];
         if (index != NSNotFound) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];
         }
+    }
+    
+    if (self.sectionsToDelete.count + self.sectionsToInsert.count > 0) {
+        [self invalidateCellSizes];
     }
     
     [self.tableView endUpdates];
@@ -733,7 +741,7 @@
 }
 
 - (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
     if (customAnimation) {
         dict[@"customAnimation"] = [customAnimation copy];
@@ -741,7 +749,7 @@
     [self.indexPathsToDelete addObject:dict];
 }
 - (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
     if (customAnimation) {
         dict[@"customAnimation"] = [customAnimation copy];
@@ -750,11 +758,11 @@
 }
 
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToDelete addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
-    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state (call beginUpdates)");
+    NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToInsert addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
 
@@ -762,26 +770,39 @@
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row {
     
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
     
     if (indexPath) {
         [self invalidCellSizeAtIndexPath:indexPath];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
 
 - (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row {
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
     
     if (indexPath) {
         [self invalidCellSizeAtIndexPath:indexPath];
+     
+        [self setNeedsUpdate];
     }
-    
+}
+
+- (void)setNeedsUpdate{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateIfNeeded) object:nil];
+    [self performSelector:@selector(updateIfNeeded) withObject:nil afterDelay:0];
+}
+- (void)updateIfNeeded{
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
-    
+}
+
+             
+- (void)updateVisibilityWithBlock:(void (^)(void))block{
+    [self beginUpdates];
+    block();
+    [self endUpdates];
 }
 
 
@@ -797,7 +818,7 @@
 #pragma mark - Scroll 
 
 - (void)scrollToRow:(TFRowDescriptor *)row position:(UITableViewScrollPosition)position animated:(BOOL)animated {
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
 
     if (indexPath) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:position animated:animated];

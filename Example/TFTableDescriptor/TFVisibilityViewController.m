@@ -59,10 +59,14 @@
     [self.tableDescriptor addSection:section];
 }
 - (IBAction)showAllRows:(id)sender {
-    [self.tableDescriptor beginUpdates];
-    TFSectionDescriptor *section = [[self.tableDescriptor allSections] firstObject];
-    [section setHidden:!section.hidden withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableDescriptor endUpdates];
+    [self.tableDescriptor updateVisibilityWithBlock:^{
+        TFSectionDescriptor *section = [[self.tableDescriptor allSections] firstObject];
+        [section setHidden:!section.hidden withRowAnimation:UITableViewRowAnimationFade];
+    }];
+//    [self.tableDescriptor beginUpdates];
+//    TFSectionDescriptor *section = [[self.tableDescriptor allSections] firstObject];
+//    [section setHidden:!section.hidden withRowAnimation:UITableViewRowAnimationFade];
+//    [self.tableDescriptor endUpdates];
 //    for (TFRowDescriptor *row in [self.tableDescriptor allRows]) {
 //        row.hidden = NO;
 //    }

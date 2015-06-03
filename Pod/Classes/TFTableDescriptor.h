@@ -115,12 +115,23 @@
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 
+// calls tableViews beginUpdates/endUpdates commands in next runloop cycle. Can be called repeatedly, update methods are run only once
+- (void)setNeedsUpdate;
 
 #pragma mark - Visibility
+
+- (void)updateVisibilityWithBlock:(void (^)(void))block;
+
+
 
 - (void)updateCellWithRowDescriptor:(TFRowDescriptor *)row;
 /// It will only invalidate size cache and ask for new
 - (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row;
+
+
+#pragma mark - Scroll
+
+- (void)scrollToRow:(TFRowDescriptor *)row position:(UITableViewScrollPosition)position animated:(BOOL)animated;
 
 @end
 

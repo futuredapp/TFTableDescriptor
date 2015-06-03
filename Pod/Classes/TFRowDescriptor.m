@@ -19,6 +19,7 @@
 @end
 
 @implementation TFRowDescriptor
+@synthesize hidden = _hidden;
 
 + (instancetype)descriptorWithRowClass:(Class)rowClass data:(id)data {
     TFRowDescriptor *descriptor = [[TFRowDescriptor alloc] init];
@@ -76,6 +77,22 @@
 }
 
 #pragma mark - Visibility
+
+-(BOOL)isHidden{
+    return _hidden || self.section.hidden;
+}
+
+- (void)setHidden:(BOOL)hidden{
+    [self setHidden:hidden checkIfUpdating:YES];
+}
+
+- (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check{
+    if (check && self.section.tableDescriptor.isBeingUpdated) {
+        [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
+    }else{
+        _hidden = hidden;
+    }
+}
 
 - (void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation {
     [self setHidden:hidden withRowAnimation:rowAnimation updateBlock:nil];
