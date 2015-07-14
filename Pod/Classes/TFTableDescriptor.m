@@ -679,7 +679,7 @@
             rowAnimation([self cellForRow:row]);
         }
         NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
-        if (indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
+        if (indexPath && indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
             [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
         }
     }
@@ -691,7 +691,7 @@
         TFRowDescriptor *row = _dictionary[@"row"];
         [row setHidden:NO checkIfUpdating:NO];
         NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
-        if (indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
+        if (indexPath && indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
             [self updateTableForInsertionAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
         }
     }
