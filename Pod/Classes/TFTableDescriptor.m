@@ -475,7 +475,7 @@
     NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
     
     [section addRowToTop:row];
-    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
+    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
     
@@ -486,7 +486,7 @@
     NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
     
     [section addRowToBottom:row];
-    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
+    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
     
@@ -498,7 +498,7 @@
     NSAssert(inFrontOfRow.section != nil, @"Trying to add cell in front of cell which is not in section!");
     
     [inFrontOfRow.section addRow:row inFronOfRow:inFrontOfRow];
-    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
+    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
     
@@ -511,7 +511,7 @@
     NSAssert(afterRow.section != nil, @"Trying to add cell after cell which is not in section!");
     
     [afterRow.section addRow:row afterRow:afterRow];
-    NSIndexPath *rowIndexPath = [self indexPathForRow:row];
+    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
     [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
     
