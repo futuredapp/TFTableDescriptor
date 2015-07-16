@@ -111,6 +111,21 @@
     return nil;
 }
 
+#pragma mark - Inserting sections
+
+- (void)insertSection:(TFSectionDescriptor *)section toIndex:(NSInteger)index {
+    NSAssert(index > self.sections.count, @"Cannot insert outside all sections");
+    
+    if (index != self.sections.count) {
+        [self invalidateCellSizes];
+    }
+    
+    [self.sections insertObject:section atIndex:index];
+    
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+}
+
 #pragma mark - Row access
 
 - (NSArray *)allRows {
@@ -619,6 +634,19 @@
     }];
     
 }
+
+// NOT IMPLEMENTED YET
+//- (void)insertSectionIntoCacheAtIndex:(NSInteger)index {
+//    
+//    NSMutableArray *indexPaths = [@[] mutableCopy];
+//    TFSectionDescriptor *section = self.sections[index];
+//    
+//    
+//    for (int i = 0; i < section.numberOfRows; i++) {
+//        NSNu
+//    }
+//    
+//}
 
 - (void)invalidCellSizeAtIndexPath:(NSIndexPath *)rowIndexPath {
     [self.cellSizeCache removeObjectForKey:rowIndexPath];

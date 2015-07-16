@@ -70,6 +70,10 @@
 - (TFSectionDescriptor *)visibleSectionAtSectionIndex:(NSInteger)section;
 - (TFSectionDescriptor *)visibleSectionForTag:(NSInteger)tag;
 
+#pragma mark - Inserting sections
+
+- (void)insertSection:(TFSectionDescriptor *)section toIndex:(NSInteger)index;
+
 #pragma mark - Access rows
 
 - (NSArray *)allRows;
