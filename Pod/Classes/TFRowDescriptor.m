@@ -89,7 +89,7 @@
 - (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check{
     if (check && self.section.tableDescriptor.isBeingUpdated) {
         [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
-    }else{
+    } else {
         _hidden = hidden;
     }
 }

@@ -675,10 +675,12 @@
     for (NSDictionary *_dictionary in self.indexPathsToDelete) {
         TFRowDescriptor *row = _dictionary[@"row"];
         TFCustomRowAnimation rowAnimation = _dictionary[@"customAnimation"];
+        
         if (rowAnimation) {
             rowAnimation([self cellForRow:row]);
         }
         NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
+        
         if (indexPath && indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
             [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
         }
@@ -691,6 +693,7 @@
         TFRowDescriptor *row = _dictionary[@"row"];
         [row setHidden:NO checkIfUpdating:NO];
         NSIndexPath *indexPath = [self indexPathForVisibleRow:row];
+        
         if (indexPath && indexPath.section != NSNotFound && indexPath.row != NSNotFound) {
             [self updateTableForInsertionAtIndexPath:indexPath rowAnimation:[_dictionary[@"animation"] integerValue]];
         }
@@ -699,6 +702,7 @@
     for (NSDictionary *_dictionary in self.sectionsToDelete) {
         TFSectionDescriptor *section = _dictionary[@"section"];
         NSInteger index = [self.allVisibleSections indexOfObject:section];
+        
         if (index != NSNotFound) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];
         }
@@ -711,6 +715,7 @@
         TFSectionDescriptor *section = _dictionary[@"section"];
         [section setHidden:NO checkIfUpdating:NO];
         NSInteger index = [self.allVisibleSections indexOfObject:section];
+        
         if (index != NSNotFound) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[_dictionary[@"animation"] integerValue]];
         }
@@ -726,6 +731,7 @@
     for (NSDictionary *_dictionary in self.indexPathsToInsert) {
         TFRowDescriptor *row = _dictionary[@"row"];
         TFCustomRowAnimation rowAnimation = _dictionary[@"customAnimation"];
+        
         if (rowAnimation) {
             rowAnimation([self cellForRow:row]);
         }
@@ -741,19 +747,26 @@
 }
 
 - (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
+    
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
+    
     if (customAnimation) {
         dict[@"customAnimation"] = [customAnimation copy];
     }
+    
     [self.indexPathsToDelete addObject:dict];
 }
+
 - (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
+    
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
+    
     if (customAnimation) {
         dict[@"customAnimation"] = [customAnimation copy];
     }
+    
     [self.indexPathsToInsert addObject:dict];
 }
 
@@ -761,6 +774,7 @@
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToDelete addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
+
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToInsert addObject:@{@"animation":@(rowAnimation),@"section":section}];
@@ -793,6 +807,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateIfNeeded) object:nil];
     [self performSelector:@selector(updateIfNeeded) withObject:nil afterDelay:0];
 }
+
 - (void)updateIfNeeded{
     [self.tableView beginUpdates];
     [self.tableView endUpdates];

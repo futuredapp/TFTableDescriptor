@@ -146,9 +146,11 @@
 - (NSArray *)allVisibleRows{
     return [[self allRows] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hidden = NO"]];
 }
+
 - (NSInteger)numberOfVisibleRows{
     return [self allVisibleRows].count;
 }
+
 - (TFRowDescriptor *)visibleRowAtRowIndex:(NSInteger)rowIndex{
     return self.allVisibleRows[rowIndex];
 }
@@ -157,20 +159,23 @@
     [self setHidden:hidden checkIfUpdating:YES];
 }
 
-- (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check{
+- (void)setHidden:(BOOL)hidden checkIfUpdating:(BOOL)check {
     if (check && self.tableDescriptor.isBeingUpdated) {
         [self setHidden:hidden withRowAnimation:UITableViewRowAnimationAutomatic];
-    }else{
+    } else {
         _hidden = hidden;
     }
 }
 
 -(void)setHidden:(BOOL)hidden withRowAnimation:(UITableViewRowAnimation)rowAnimation{
-    if(hidden == _hidden)return;
+    
+    if (hidden == _hidden) {
+        return;
+    }
 
     if (hidden) {
         [self.tableDescriptor addSectionForDeleting:self rowAnimation:rowAnimation];
-    }else{
+    } else {
         [self.tableDescriptor addSectionForInserting:self rowAnimation:rowAnimation];
     }
 }
