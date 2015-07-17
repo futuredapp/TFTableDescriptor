@@ -123,7 +123,7 @@
     [self.sections insertObject:section atIndex:index];
     
     if (self.isBeingUpdated) {
-        [self.sectionsToInsert addObject:section];
+        [self.sectionsToInsert addObject:@{@"section": section}];
     } else {
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
