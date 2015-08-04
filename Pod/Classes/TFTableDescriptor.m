@@ -494,20 +494,29 @@
     NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
     
     [section addRowToTop:row];
-    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
-    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
-    
-    
+    if (_isBeingUpdated) {
+        [self addRowForInserting:row rowAnimation:rowAnimation customAnimation:nil];
+    } else {
+
+        NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
+        [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    }
+
 }
 
 - (void)insertRow:(TFRowDescriptor *)row atBottomOfSection:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation {
     NSAssert([self containSection:section], @"Table descriptor doesn't contain section you are trying insert into!");
     
     [section addRowToBottom:row];
-    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
-    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    if (_isBeingUpdated) {
+        [self addRowForInserting:row rowAnimation:rowAnimation customAnimation:nil];
+    } else {
+
+        NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
+        [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    }
     
 }
 
@@ -517,9 +526,15 @@
     NSAssert(inFrontOfRow.section != nil, @"Trying to add cell in front of cell which is not in section!");
     
     [inFrontOfRow.section addRow:row inFronOfRow:inFrontOfRow];
-    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
-    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    
+    if (_isBeingUpdated) {
+        [self addRowForInserting:row rowAnimation:rowAnimation customAnimation:nil];
+    } else {
+
+        NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
+        [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    }
     
     
 }
@@ -530,17 +545,21 @@
     NSAssert(afterRow.section != nil, @"Trying to add cell after cell which is not in section!");
     
     [afterRow.section addRow:row afterRow:afterRow];
-    NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
     
-    [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
-    
+    if (_isBeingUpdated) {
+        [self addRowForInserting:row rowAnimation:rowAnimation customAnimation:nil];
+    } else {
+        NSIndexPath *rowIndexPath = [self indexPathForVisibleRow:row];
+        [self updateTableForInsertionAtIndexPath:rowIndexPath rowAnimation:rowAnimation];
+    }
 }
 
+
 - (void)updateTableForInsertionAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
+    
     [self insertCellSizeCacheAtIndexPath:indexPath];
     
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
-    
 }
 
 - (void)updateTableForDeleteAtIndexPath:(NSIndexPath *)indexPath rowAnimation:(UITableViewRowAnimation)rowAnimation {
@@ -564,12 +583,18 @@
     
     NSAssert(row != nil, @"Row cannot be nil!");
     
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+    if (_isBeingUpdated) {
+        
+        [self addRowForDeleting:row rowAnimation:rowAnimation customAnimation:nil];
+        
+    } else {
     
-    [row.section removeRow:row];
-    
-    [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:rowAnimation];
-    
+        NSIndexPath *indexPath = [self indexPathForRow:row];
+        
+        [row.section removeRow:row];
+        
+        [self updateTableForDeleteAtIndexPath:indexPath rowAnimation:rowAnimation];
+    }
 }
 
 - (void)removeRowWithTag:(NSString *)tag rowAnimation:(UITableViewRowAnimation)rowAnimation {
@@ -778,7 +803,7 @@
     
 }
 
-- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
+- (void)addRowForDeleting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation {
     
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
@@ -790,7 +815,7 @@
     [self.indexPathsToDelete addObject:dict];
 }
 
-- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation{
+- (void)addRowForInserting:(TFRowDescriptor *)row rowAnimation:(UITableViewRowAnimation)rowAnimation customAnimation:(TFCustomRowAnimation)customAnimation {
     
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     NSMutableDictionary *dict = [@{@"row":row,@"animation":@(rowAnimation)} mutableCopy];
@@ -802,12 +827,12 @@
     [self.indexPathsToInsert addObject:dict];
 }
 
-- (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
+- (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation {
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToDelete addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
 
-- (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation{
+- (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation {
     NSAssert(_isBeingUpdated, @"tableDescriptor must be in updating state when updating visibility");
     [self.sectionsToInsert addObject:@{@"animation":@(rowAnimation),@"section":section}];
 }
@@ -835,18 +860,18 @@
     }
 }
 
-- (void)setNeedsUpdate{
+- (void)setNeedsUpdate {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateIfNeeded) object:nil];
     [self performSelector:@selector(updateIfNeeded) withObject:nil afterDelay:0];
 }
 
-- (void)updateIfNeeded{
+- (void)updateIfNeeded {
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
 }
 
              
-- (void)updateVisibilityWithBlock:(void (^)(void))block{
+- (void)updateVisibilityWithBlock:(void (^)(void))block {
     [self beginUpdates];
     block();
     [self endUpdates];
