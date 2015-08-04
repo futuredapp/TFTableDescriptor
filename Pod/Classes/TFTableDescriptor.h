@@ -56,7 +56,7 @@
 - (NSIndexPath *)indexPathForVisibleRow:(TFRowDescriptor *)row;
 
 /// Returns UITableViewCell for given row descriptor. If row is not visible returns nil.
-- (UITableViewCell *)cellForRow:(TFRowDescriptor *)row;
+- (UITableViewCell <TFTableDescriptorConfigurableCellProtocol> *)cellForRow:(TFRowDescriptor *)row;
 
 #pragma mark - Access sections
 
@@ -119,7 +119,7 @@
 - (void)addSectionForDeleting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 - (void)addSectionForInserting:(TFSectionDescriptor *)section rowAnimation:(UITableViewRowAnimation)rowAnimation;
 
-// calls tableViews beginUpdates/endUpdates commands in next runloop cycle. Can be called repeatedly, update methods are run only once
+/// Calls tableViews beginUpdates/endUpdates commands in next runloop cycle. Can be called repeatedly, update methods are run only once
 - (void)setNeedsUpdate;
 
 #pragma mark - Visibility
@@ -131,6 +131,12 @@
 /// It will only invalidate size cache and ask for new
 - (void)updateCellHeightWithRowDescriptor:(TFRowDescriptor *)row;
 
+
+#pragma mark - Update
+/// Tries to call configureWithData on the proper cell if visible
+- (void)updateContentOfCellWithRow:(TFRowDescriptor *)rowDescriptor;
+/// Tries to call configureWithData on the proper cell if visible
+- (void)updateContentOfCellWithRowTag:(NSString *)rowTag;
 
 #pragma mark - Scroll
 

@@ -248,8 +248,8 @@
     return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
 }
 
-- (UITableViewCell *)cellForRow:(TFRowDescriptor *)row {
-    return [self.tableView cellForRowAtIndexPath:[self indexPathForVisibleRow:row]];
+- (UITableViewCell <TFTableDescriptorConfigurableCellProtocol> *)cellForRow:(TFRowDescriptor *)row {
+    return (UITableViewCell<TFTableDescriptorConfigurableCellProtocol> *)[self.tableView cellForRowAtIndexPath:[self indexPathForVisibleRow:row]];
 }
 
 #pragma mark - Lazy initializations
@@ -851,6 +851,27 @@
     block();
     [self endUpdates];
 }
+
+
+#pragma mark - Update
+/// Tries to call configureWithData on the proper cell if visible
+- (void)updateContentOfCellWithRow:(TFRowDescriptor *)rowDescriptor {
+    UITableViewCell <TFTableDescriptorConfigurableCellProtocol> *cell = [self cellForRow:rowDescriptor];
+    
+    if (cell) {
+        [cell configureWithData:rowDescriptor.data];
+    }
+    
+}
+
+/// Tries to call configureWithData on the proper cell if visible
+- (void)updateContentOfCellWithRowTag:(NSString *)rowTag {
+    
+    TFRowDescriptor *rowDescriptor = [self rowForTag:rowTag];
+    [self updateContentOfCellWithRow:rowDescriptor];
+    
+}
+
 
 
 #pragma mark - UIScrollView delegate
