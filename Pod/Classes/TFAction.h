@@ -12,8 +12,11 @@
 
 @property (nonatomic, strong) id sender;
 @property NSInteger type;
+@property (nonatomic, strong) id data;
 
 + (instancetype)actionWithSender:(id)sender type:(NSInteger)type;
+
++ (instancetype)actionWithSender:(id)sender type:(NSInteger)type data:(id)data;
 
 
 @end
